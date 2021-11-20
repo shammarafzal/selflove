@@ -38,6 +38,7 @@ dependencies:
   pin_code_text_field: ^1.8.0
   shared_preferences: ^2.0.8
   table_calendar: ^3.0.3
+  weather_icons: ^3.0.0
   flutter_rounded_date_picker: ^2.0.2
   weather: ^2.0.1
 

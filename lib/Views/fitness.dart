@@ -13,11 +13,22 @@ class Fitness extends StatefulWidget {
 class _FitnessState extends State<Fitness> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: [
-          ImagesList(),
-          ImageList(),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
+        title: Text('Fitness',),
+        leading: InkWell(
+            onTap: (){
+              Navigator.of(context).pushReplacementNamed('home');
+            },
+            child: Icon(Icons.arrow_back_ios)),
+      ),
+      body: Column(
+          children: [
+            ImagesList(),
+            ImageList(),
 
-        ]);
+          ]),
+    );
   }
 }

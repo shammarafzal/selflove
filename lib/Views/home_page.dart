@@ -3,6 +3,7 @@ import 'account_screen.dart';
 import 'calender_screen.dart';
 import 'fitness.dart';
 import 'home_landing_page.dart';
+import 'medication_screen.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -113,7 +114,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             HomeLanding(),
             TableEventsExample(),
-            TableEventsExample()
+            MedicationScreen()
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

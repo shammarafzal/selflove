@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Views/fitness.dart';
 import 'Views/home_page.dart';
 import 'Views/in_app_purchase.dart';
 import 'Views/intro_screen.dart';
@@ -18,7 +19,7 @@ Future<void> main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       // initialRoute: isLoggedIn! ? 'home' : 'home',
-      initialRoute: 'home',
+      initialRoute: 'intro_screen',
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
         'login': (context) => SignIn(),
@@ -26,7 +27,7 @@ Future<void> main() async {
         'intro_screen': (context) => IntroScreen(),
         'in_app_purchases': (context) => InAppPurchase(),
         'home': (context) => HomePage(),
-
+        'fitness': (context) => Fitness(),
 
       },
     ),
