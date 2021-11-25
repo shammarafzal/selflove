@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:self_love/Components/custom_categories_list.dart';
 import 'package:self_love/Components/custom_fitness_list.dart';
 import 'package:self_love/Components/custom_image_list.dart';
 

@@ -32,7 +32,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       height: 100,
       child: Card(
         elevation: 5,
-        color: Colors.pinkAccent,
+        color: Color.fromRGBO(254,176,149, 1),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

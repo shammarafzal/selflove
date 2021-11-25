@@ -4,6 +4,7 @@ import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+import 'package:self_love/Settings/alertDialog.dart';
 
 class UpdateProfile extends StatefulWidget {
   @override
@@ -151,7 +152,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                           child: CustomButton(title: 'Update', onPress: (){
-                            Navigator.of(context).pushReplacementNamed('verify_code');
+                            alertScreen().showAlertDialog(context, 'Account Information Updated Successfully');
                           },),
                         ),
                       ],

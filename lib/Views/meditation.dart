@@ -13,8 +13,10 @@ class MedicationList extends StatelessWidget {
       height: SizeConfig.screenHeight * 0.5,
       child: ListView(
         children: [
-          Meditation(imagePath: 'https://googleflutter.com/sample_image.jpg', title: 'Nanga Mujra', desc: 'It\'s very important', long_desc: 'Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim ',),
-          Meditation(imagePath: 'https://googleflutter.com/sample_image.jpg', title: 'Nanga Mujra', desc: 'It\'s very important', long_desc: 'Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim ',)
+          Meditation(imagePath: 'https://theselflovebible.com.au/wp-content/uploads/2021/02/Asset-1.png', title: 'Inner Power', desc: 'Your Inner Power Runs Deep', long_desc: 'Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim ',),
+          Meditation(imagePath: 'https://theselflovebible.com.au/wp-content/uploads/2021/02/Asset-5.png', title: 'Self Worth', desc: 'What do you think about yourself?', long_desc: 'Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim ',),
+          Meditation(imagePath: 'https://theselflovebible.com.au/wp-content/uploads/2021/02/Asset-6.png', title: 'Anxiety', desc: 'Anxiety does NOT run our lives', long_desc: 'Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim Lorum ipsim ',),
+
         ],
       ),
     );
@@ -58,10 +60,10 @@ class _MeditationState extends State<Meditation> {
                     image: NetworkImage(widget.imagePath), fit: BoxFit.cover)),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 18.0, top: 10),
+            padding: const EdgeInsets.only(left: 20.0, top: 10),
             child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('${widget.title}', style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),)),
+                child: Text('${widget.title}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),)),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18.0,bottom: 10),

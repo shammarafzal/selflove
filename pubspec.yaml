@@ -41,7 +41,14 @@ dependencies:
   weather_icons: ^3.0.0
   flutter_rounded_date_picker: ^2.0.2
   weather: ^2.0.1
-
+  http: ^0.13.1
+  path_provider: ^2.0.1
+  provider: 5.0.0
+  audio_session: ^0.1.6+1
+  just_audio: ^0.9.13
+  flutter_tts: ^3.2.2
+  rxdart: ^0.27.2
+  audio_service: ^0.18.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -57,7 +64,7 @@ flutter_native_splash:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/self_logo.jpg"
+  image_path: "assets/self_logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 
+import '../main.dart';
+
 class MeditationDetails extends StatefulWidget {
   const MeditationDetails({Key? key, required this.imagePath, required this.title, required this.desc, required this.long_desc,}) : super(key: key);
   final imagePath;
@@ -12,6 +14,9 @@ class MeditationDetails extends StatefulWidget {
 }
 
 class _MeditationDetailsState extends State<MeditationDetails> {
+
+
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -21,27 +26,26 @@ class _MeditationDetailsState extends State<MeditationDetails> {
       ),
       body: Container(
         decoration: BoxDecoration(
-            // borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
                 image: NetworkImage(widget.imagePath), fit: BoxFit.cover)),
-        child: Container(
-          // width: SizeConfig.screenWidth * 0.6,
-          // height: SizeConfig.screenHeight * 0.6,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('${widget.title}', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18),),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('${widget.desc}', style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal, fontSize: 14),textAlign: TextAlign.center,),
-              ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('${widget.title}', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18),),
+            Container(
+              height: 200,
+              child: MainScreen(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('${widget.desc}', style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal, fontSize: 14),textAlign: TextAlign.center,),
+            ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('${widget.long_desc}', style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal, fontSize: 18),textAlign: TextAlign.center,),
-              ),
-            ],
-          ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('${widget.long_desc}', style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal, fontSize: 18),textAlign: TextAlign.center,),
+            ),
+          ],
         ),
       ),
     );

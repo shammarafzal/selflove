@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:self_love/Components/custom_categories_list.dart';
 import 'package:self_love/Models/events.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -82,6 +83,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
       // ),
       body: Column(
         children: [
+          CategoriesList(),
           TableCalendar<Event>(
             firstDay: kFirstDay,
             lastDay: kLastDay,

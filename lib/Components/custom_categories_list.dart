@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class CategoriesList extends StatelessWidget {
@@ -12,14 +10,12 @@ class CategoriesList extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          CategoriesView(imagePath: "https://cdn-icons-png.flaticon.com/128/2647/2647591.png", title: "Fitness",),
-          CategoriesView(imagePath: "https://googleflutter.com/sample_image.jpg", title: "ok",),
-          CategoriesView(imagePath: "https://googleflutter.com/sample_image.jpg", title: "ok",),
-          CategoriesView(imagePath: "https://googleflutter.com/sample_image.jpg", title: "ok",),
-          CategoriesView(imagePath: "https://googleflutter.com/sample_image.jpg", title: "ok",),
-          CategoriesView(imagePath: "https://googleflutter.com/sample_image.jpg", title: "ok",),
-          CategoriesView(imagePath: "https://googleflutter.com/sample_image.jpg", title: "ok",),
-          CategoriesView(imagePath: "https://googleflutter.com/sample_image.jpg", title: "ok",),
+          CategoriesView(imagePath: "https://image.freepik.com/free-photo/sporty-young-woman-model-wearing-white-sleeveless-t-shirt-leggins-doing-sport-exercise-biceps-triceps-with-sport-fitness-rubber-bands-isolated-color-background_176532-13645.jpg", title: "Fitness",),
+          CategoriesView(imagePath: "https://image.freepik.com/free-photo/young-pregnant-woman-smiling-with-happiness_1150-18141.jpg", title: "Pregnancy",),
+          CategoriesView(imagePath: "https://image.freepik.com/free-vector/organic-flat-people-meditating-illustration_23-2148906556.jpg", title: "Health",),
+          CategoriesView(imagePath: "https://image.freepik.com/free-photo/love-yourself-self-acceptance-gentle-lovely-afro-american-woman-crosses-hands-embraces-own-body-tilts-head-closes-eyes_273609-39190.jpg", title: "Self Love",),
+          CategoriesView(imagePath: "https://image.freepik.com/free-photo/top-view-healthy-food-vs-unhealthy-food_23-2148194603.jpg", title: "Nutrition",),
+          CategoriesView(imagePath: "https://cdn-icons-png.flaticon.com/512/6146/6146236.png", title: "Life",),
         ],
       ),
     );
@@ -44,14 +40,13 @@ class _CategoriesViewState extends State<CategoriesView> {
         width: 80,
         height: 100,
         decoration: BoxDecoration(
-            color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(image: NetworkImage(widget.imagePath),
                 fit: BoxFit.cover)
         ),
         child: Align(
             alignment: Alignment.bottomCenter,
-            child: Text(widget.title, style: TextStyle(color: Colors.white, fontSize: 18),)),
+            child: Text(widget.title, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),textAlign: TextAlign.center,)),
       ),
     );
   }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'account_screen.dart';
 import 'calender_screen.dart';
-import 'fitness.dart';
 import 'home_landing_page.dart';
 import 'medication_screen.dart';
 
 
 class HomePage extends StatefulWidget {
+
+  const HomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -14,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
+  late String _title;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -31,10 +34,15 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
+
+  @override
+  initState(){
+    _title = 'Fitness';
   }
 
   //
@@ -44,9 +52,10 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async => !Navigator.of(context).userGestureInProgress,
       child: Scaffold(
         appBar: new AppBar(
+          title: Text(_title),
           elevation: 0.0,
           centerTitle: true,
-          backgroundColor: Colors.pinkAccent,
+          backgroundColor: Color.fromRGBO(254,176,149, 1),
         ),
         drawer: new Drawer(
             child: ListView(
@@ -129,16 +138,30 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat_bubble_rounded),
-              label: 'Medication',
+              label: 'Meditation',
             ),
           ],
           currentIndex: _selectedIndex,
           showUnselectedLabels: true,
           selectedItemColor: Colors.pinkAccent,
-          onTap: _onItemTapped,
+          onTap: onTabTapped,
           unselectedItemColor: Colors.grey,
         ),
       ),
     );
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      switch(index) {
+        case 0: { _title = 'Fitness'; }
+        break;
+        case 1: { _title = 'Calender'; }
+        break;
+        case 2: { _title = 'Meditation'; }
+        break;
+      }
+    });
   }
 }
