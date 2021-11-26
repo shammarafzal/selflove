@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
+import 'package:self_love/Views/fit_cat_details.dart';
 
 
 class Suggestion_list extends StatelessWidget {
@@ -76,7 +77,13 @@ class _SuggestionState extends State<Suggestion> {
     SizeConfig().init(context);
     return InkWell(
       onTap: (){
-        Navigator.of(context).pushReplacementNamed('fitness');
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+              builder: (context) =>
+                  FitCatDetails(title: widget.title, desc: widget.desc, image: widget.imagePath, story: '')
+          ),
+        );
       },
       child: Container(
         color: Color.fromRGBO(246, 247, 249, 1),

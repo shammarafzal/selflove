@@ -23,6 +23,7 @@ class _MeditationDetailsState extends State<MeditationDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.title}'),
+        backgroundColor: Color.fromRGBO(254,176,149, 1),
       ),
       body: Container(
         decoration: BoxDecoration(

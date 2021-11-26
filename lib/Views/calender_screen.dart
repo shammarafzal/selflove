@@ -3,6 +3,8 @@ import 'package:self_love/Components/custom_categories_list.dart';
 import 'package:self_love/Models/events.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import 'challenge_screen.dart';
+
 class TableEventsExample extends StatefulWidget {
   @override
   _TableEventsExampleState createState() => _TableEventsExampleState();
@@ -129,7 +131,26 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: ListTile(
-                        onTap: () => print('${value[index]}'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) =>
+                                    ChallengeScreen(
+                                      title: 'LEGS',
+                                      desc: 'People fail to mentio the miracles our legs actuallly are.',
+                                      long_desc: 'There are so many negative remarks and words that are place onto '
+                                          'people\s legs. My legs have been refered to as thunder things, cottage cheese.',
+                                      day: 'Day 1',
+                                      challenge_msg1: 'There are so many negative remarks and words that are place onto '
+                                          'people\s legs. My legs have been refered to as thunder things, cottage cheese',
+                                      challenge_msg2: 'There are so many negative remarks and words that are place onto '
+                                          'people\s legs. My legs have been refered to as thunder things, cottage cheese',
+                                      challenge_msg3: 'There are so many negative remarks and words that are place onto '
+                                          'people\s legs. My legs have been refered to as thunder things, cottage cheese',)
+                            ),
+                          );
+                        },
                         title: Text('${value[index]}'),
                       ),
                     );

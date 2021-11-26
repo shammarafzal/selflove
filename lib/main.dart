@@ -1,7 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'Components/cat_item_list.dart';
 import 'Views/common.dart';
+import 'Views/fit_cat_details.dart';
 import 'Views/fitness.dart';
 import 'Views/home_page.dart';
 import 'Views/in_app_purchase.dart';
@@ -45,8 +47,9 @@ Future<void> main() async {
         'verify_code': (context) => VerificationCode(email: 'ammarafzal075@gmail.com',),
         'intro_screen': (context) => IntroScreen(),
         'in_app_purchases': (context) => InAppPurchase(),
-        'home': (context) => HomePage(title: 'ok',),
+        'home': (context) => HomePage(title: 'Fitness',),
         'fitness': (context) => Fitness(),
+        'cat_item_list': (context) => CatItemList(),
       },
     ),
   );
