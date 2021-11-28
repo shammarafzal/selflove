@@ -23,19 +23,19 @@ class _FitCatDetailsState extends State<FitCatDetails> {
         backgroundColor: Color.fromRGBO(254,176,149, 1),
       ),
       body: Container(
-        color: Colors.blueAccent,
+        // color: Colors.blueAccent,
         child: ListView(
           children: [
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),),
+                child: Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.black),),
               ),
             ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.story, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: Colors.white),),
+                child: Text(widget.story, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: Colors.black),),
               ),
             ),
             Container(
@@ -44,7 +44,7 @@ class _FitCatDetailsState extends State<FitCatDetails> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.desc, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.white), textAlign: TextAlign.center,),
+                child: Text(widget.desc, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.black), textAlign: TextAlign.center,),
               ),
             ),
 
