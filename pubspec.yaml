@@ -50,6 +50,7 @@ dependencies:
   rxdart: ^0.27.2
   audio_service: ^0.18.1
   chewie: ^1.2.2
+  font_awesome_flutter: ^9.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

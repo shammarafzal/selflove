@@ -50,7 +50,7 @@ class _CategoriesViewState extends State<CategoriesView> {
           ),
           child: Align(
               alignment: Alignment.bottomCenter,
-              child: Text(widget.title, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),textAlign: TextAlign.center,)),
+              child: Text(widget.title, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal),textAlign: TextAlign.center,)),
         ),
       ),
     );

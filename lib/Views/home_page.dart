@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:self_love/Settings/alertDialog.dart';
 import 'account_screen.dart';
 import 'calender_screen.dart';
 import 'home_landing_page.dart';
 import 'medication_screen.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
 
                           accountName: Text('ss',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                           accountEmail: Text('ss'),
-                          decoration: new BoxDecoration(color: Colors.pinkAccent),
+                          decoration: new BoxDecoration(color:  Color.fromRGBO(254,176,149, 1),),
                         );
                       }
                       return UserAccountsDrawerHeader(
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         accountName: Text('Ammar',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                         accountEmail: Text('ammarafzal075@gmail.com'),
-                        decoration: new BoxDecoration(color: Colors.pinkAccent),
+                        decoration: new BoxDecoration(color:  Color.fromRGBO(254,176,149, 1),),
                       );
                     }
                 ),
@@ -88,22 +89,31 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: ListTile(
                     title: Text('Home'),
-                    leading: Icon(Icons.home, color: Colors.pinkAccent),
+                    leading: Icon(Icons.home, color:  Color.fromRGBO(254,176,149, 1),),
                   ),
                 ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       new MaterialPageRoute(
+                //           builder: (context) =>
+                //               UpdateProfile()
+                //       ),
+                //     );
+                //   },
+                //   child: ListTile(
+                //     title: Text('Profile'),
+                //     leading: Icon(Icons.person, color: Colors.pinkAccent),
+                //   ),
+                // ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) =>
-                              UpdateProfile()
-                      ),
-                    );
+                    alertScreen().showAlertUnSubDialog(context, 'Do you really want to unsubscribe');
                   },
                   child: ListTile(
-                    title: Text('Profile'),
-                    leading: Icon(Icons.person, color: Colors.pinkAccent),
+                    title: Text('UnSubscribe'),
+                    leading: Icon(Icons.unsubscribe, color:  Color.fromRGBO(254,176,149, 1),),
                   ),
                 ),
                 InkWell(
@@ -112,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: ListTile(
                     title: Text('Logout'),
-                    leading: Icon(Icons.logout, color: Colors.pinkAccent),
+                    leading: Icon(Icons.logout, color:  Color.fromRGBO(254,176,149, 1),),
                   ),
                 ),
               ],
@@ -133,11 +143,11 @@ class _HomePageState extends State<HomePage> {
               label: 'Fitness',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.local_offer_outlined),
+              icon: Icon(Icons.calendar_today),
               label: 'Calender',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_rounded),
+              icon: Icon(FontAwesomeIcons.clinicMedical),
               label: 'Meditation',
             ),
           ],
