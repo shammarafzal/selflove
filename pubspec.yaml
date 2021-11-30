@@ -51,6 +51,10 @@ dependencies:
   audio_service: ^0.18.1
   chewie: ^1.2.2
   font_awesome_flutter: ^9.2.0
+  flutter_credit_card: ^3.0.1
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

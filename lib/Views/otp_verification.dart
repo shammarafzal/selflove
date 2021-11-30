@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
+import 'dart:io' show Platform;
 
 class VerificationCode extends StatefulWidget {
   final String email;
@@ -105,7 +106,12 @@ class _VerificationCodeState extends State<VerificationCode> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10,10,10,20),
                         child: CustomButton(title: 'Continue', onPress: (){
-                          Navigator.of(context).pushReplacementNamed('in_app_purchases');
+                          if (Platform.isAndroid) {
+                            Navigator.of(context).pushReplacementNamed('payment_screen');
+                          } else if (Platform.isIOS) {
+                            Navigator.of(context).pushReplacementNamed('in_app_purchases');
+                          }
+
                         }
                         ),
                       ),

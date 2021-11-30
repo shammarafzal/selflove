@@ -9,6 +9,7 @@ import 'Views/home_page.dart';
 import 'Views/in_app_purchase.dart';
 import 'Views/intro_screen.dart';
 import 'Views/otp_verification.dart';
+import 'Views/payment_screen.dart';
 import 'Views/signinScreen.dart';
 import 'Views/signupScreen.dart';
 import 'dart:async';
@@ -50,6 +51,8 @@ Future<void> main() async {
         'home': (context) => HomePage(title: 'Fitness',),
         'fitness': (context) => Fitness(),
         'cat_item_list': (context) => CatItemList(),
+        'payment_screen': (context) => PaymentScreen(),
+
       },
     ),
   );

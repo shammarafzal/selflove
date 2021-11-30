@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:self_love/Settings/alertDialog.dart';
+import 'package:self_love/Views/payment_screen.dart';
 import 'account_screen.dart';
 import 'calender_screen.dart';
 import 'home_landing_page.dart';
@@ -98,13 +99,13 @@ class _HomePageState extends State<HomePage> {
                 //       context,
                 //       new MaterialPageRoute(
                 //           builder: (context) =>
-                //               UpdateProfile()
+                //               PaymentScreen()
                 //       ),
                 //     );
                 //   },
                 //   child: ListTile(
-                //     title: Text('Profile'),
-                //     leading: Icon(Icons.person, color: Colors.pinkAccent),
+                //     title: Text('Stripe Payment'),
+                //     leading: Icon(Icons.person, color: Color.fromRGBO(254,176,149, 1)),
                 //   ),
                 // ),
                 InkWell(
@@ -112,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                     alertScreen().showAlertUnSubDialog(context, 'Do you really want to unsubscribe');
                   },
                   child: ListTile(
-                    title: Text('UnSubscribe'),
+                    title: Text('Unsubscribe'),
                     leading: Icon(Icons.unsubscribe, color:  Color.fromRGBO(254,176,149, 1),),
                   ),
                 ),
