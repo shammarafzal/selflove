@@ -4,11 +4,11 @@ import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'dart:io' show Platform;
 
+import 'package:self_love/Settings/alertDialog.dart';
+import 'package:self_love/Utils/api.dart';
+
 class VerificationCode extends StatefulWidget {
-  final String email;
-  VerificationCode({
-    required this.email,
-  });
+
   @override
   _VerificationCodeState createState() => _VerificationCodeState();
 }
@@ -25,6 +25,7 @@ class _VerificationCodeState extends State<VerificationCode> {
   }
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     SizeConfig().init(context);
     return Scaffold(
       body: Container(
@@ -63,7 +64,7 @@ class _VerificationCodeState extends State<VerificationCode> {
                       Text('Verify your account by entering the 4 digit code we sent to your email'),
                       Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(widget.email, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
+                          child: Text(arguments['token'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
                       Container(height: 30,),
                       Align(
                           alignment: Alignment.centerLeft,
@@ -105,13 +106,24 @@ class _VerificationCodeState extends State<VerificationCode> {
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10,10,10,20),
-                        child: CustomButton(title: 'Continue', onPress: (){
-                          if (Platform.isAndroid) {
-                            Navigator.of(context).pushReplacementNamed('payment_screen');
-                          } else if (Platform.isIOS) {
-                            Navigator.of(context).pushReplacementNamed('in_app_purchases');
+                        child: CustomButton(title: 'Continue', onPress: () async {
+                          if(controller.text == ""){
+                            alertScreen().showAlertDialog(context, "Please Enter Pin");
                           }
-
+                          else{
+                            var response = await API().verifyEmailToken(controller.text, arguments['token']);
+                            print(arguments['token']);
+                            if(response['status'] == false){
+                              alertScreen().showAlertDialog(context, response['message']);
+                            }
+                            else{
+                              if (Platform.isAndroid) {
+                                Navigator.of(context).pushReplacementNamed('payment_screen');
+                              } else if (Platform.isIOS) {
+                                Navigator.of(context).pushReplacementNamed('in_app_purchases');
+                              }
+                            }
+                          }
                         }
                         ),
                       ),

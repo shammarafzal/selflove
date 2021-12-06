@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
+import 'package:self_love/Settings/alertDialog.dart';
+import 'package:self_love/Utils/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -79,8 +82,38 @@ class _SignInState extends State<SignIn> {
 
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: CustomButton(title: 'Login', onPress: (){
-                            Navigator.of(context).pushReplacementNamed('home');
+                          child: CustomButton(title: 'Login', onPress: () async {
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            bool emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(_email.text);
+                            if (_email.text == "") {
+                              alertScreen()
+                                  .showAlertDialog(context, "Please Enter Email");
+                            } else if (emailValid == false) {
+                              alertScreen().showAlertDialog(
+                                  context, "Please Enter Valid Email");
+                            } else if (_password.text == "") {
+                              alertScreen().showAlertDialog(
+                                  context, "Please Enter Password");
+                            } else if (_password.text.length <= 7) {
+                              alertScreen().showAlertDialog(
+                                  context, "Please Length Must Greater than 8");
+                            } else {
+                              var response =
+                                  await API().login(_email.text, _password.text);
+                              if (response['status'] == false) {
+                                alertScreen()
+                                    .showAlertDialog(context, response['message']);
+                              } else {
+                                prefs.setBool('isLoggedIn', true);
+                                prefs.setString('token', response['token']);
+                                prefs.setInt('id', response['user']['id']);
+                                Navigator.of(context).pushReplacementNamed('/home');
+                              }
+                            }
+
                           },),
                         ),
                       ],

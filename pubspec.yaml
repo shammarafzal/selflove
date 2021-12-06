@@ -52,6 +52,7 @@ dependencies:
   chewie: ^1.2.2
   font_awesome_flutter: ^9.2.0
   flutter_credit_card: ^3.0.1
+  get: ^4.5.1
 
 
 

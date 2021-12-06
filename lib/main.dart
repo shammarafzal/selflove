@@ -1,7 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Components/cat_item_list.dart';
+import 'Routes/route.dart';
 import 'Views/common.dart';
 import 'Views/fit_cat_details.dart';
 import 'Views/fitness.dart';
@@ -15,7 +17,7 @@ import 'Views/signupScreen.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/rxdart.dart' as rrx;
 
   late AudioHandler _audioHandler;
 
@@ -37,23 +39,24 @@ Future<void> main() async {
       : prefs.getBool('isLoggedIn');
 
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
+    GetMaterialApp(
+      // debugShowCheckedModeBanner: false,
       // initialRoute: isLoggedIn! ? 'home' : 'home',
-      initialRoute: 'intro_screen',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      routes: {
-        'login': (context) => SignIn(),
-        'signup_screen': (context) => SignUp(),
-        'verify_code': (context) => VerificationCode(email: 'ammarafzal075@gmail.com',),
-        'intro_screen': (context) => IntroScreen(),
-        'in_app_purchases': (context) => InAppPurchase(),
-        'home': (context) => HomePage(title: 'Fitness',),
-        'fitness': (context) => Fitness(),
-        'cat_item_list': (context) => CatItemList(),
-        'payment_screen': (context) => PaymentScreen(),
+      initialRoute: '/login',
+      getPages: Routes.routes
+      // theme: ThemeData(primarySwatch: Colors.blue),
+      // routes: {
+      //   'login': (context) => SignIn(),
+      //   'signup_screen': (context) => SignUp(),
+      //   'verify_code': (context) => VerificationCode(),
+      //   'intro_screen': (context) => IntroScreen(),
+      //   'in_app_purchases': (context) => InAppPurchase(),
+      //   'home': (context) => HomePage(title: 'Fitness',),
+      //   'fitness': (context) => Fitness(),
+      //   'cat_item_list': (context) => CatItemList(),
+      //   'payment_screen': (context) => PaymentScreen(),
 
-      },
+      // },
     ),
   );
 }
@@ -135,7 +138,7 @@ class MainScreen extends StatelessWidget {
   /// A stream reporting the combined state of the current media item and its
   /// current position.
   Stream<MediaState> get _mediaStateStream =>
-      Rx.combineLatest2<MediaItem?, Duration, MediaState>(
+      rrx.Rx.combineLatest2<MediaItem?, Duration, MediaState>(
           _audioHandler.mediaItem,
           AudioService.position,
               (mediaItem, position) => MediaState(mediaItem, position));

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
+import 'package:self_love/Settings/alertDialog.dart';
+import 'package:self_love/Utils/api.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -10,16 +12,17 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final _firstname = TextEditingController();
+  final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _passwordConfirm = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       body: Container(
-        color: Color.fromRGBO(254,176,149, 0.3),
+        color: Color.fromRGBO(254, 176, 149, 0.3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -63,8 +66,9 @@ class _SignUpState extends State<SignUp> {
                         ),
                         Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                            child: CustomTextField(controller: _firstname,)
-                        ),
+                            child: CustomTextField(
+                              controller: _name,
+                            )),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -76,8 +80,9 @@ class _SignUpState extends State<SignUp> {
                         ),
                         Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                            child: CustomTextField(controller: _email,)
-                        ),
+                            child: CustomTextField(
+                              controller: _email,
+                            )),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -89,8 +94,10 @@ class _SignUpState extends State<SignUp> {
                         ),
                         Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                            child: CustomTextField(controller: _password, isPassword: true,)
-                        ),
+                            child: CustomTextField(
+                              controller: _password,
+                              isPassword: true,
+                            )),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -102,13 +109,59 @@ class _SignUpState extends State<SignUp> {
                         ),
                         Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                            child: CustomTextField(controller: _passwordConfirm, isPassword: true,)
-                        ),
+                            child: CustomTextField(
+                              controller: _passwordConfirm,
+                              isPassword: true,
+                            )),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: CustomButton(title: 'Contine', onPress: (){
-                            Navigator.of(context).pushReplacementNamed('verify_code');
-                          },),
+                          child: CustomButton(
+                            title: 'Contine',
+                            onPress: () async {
+                              bool emailValid = RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(_email.text);
+                              if (_name.text == "") {
+                                alertScreen().showAlertDialog(
+                                    context, "Please Enter First Name");
+                              } else if (_email.text == "") {
+                                alertScreen().showAlertDialog(
+                                    context, "Please Enter Email");
+                              } else if (emailValid == false) {
+                                alertScreen().showAlertDialog(
+                                    context, "Please Enter Valid Email");
+                              } else if (_password.text == "") {
+                                alertScreen().showAlertDialog(
+                                    context, "Please Enter Password");
+                              } else if (_password.text.length <= 7) {
+                                alertScreen().showAlertDialog(context,
+                                    "Password Length Must Greater than 8");
+                              } else if (_passwordConfirm.text == "") {
+                                alertScreen().showAlertDialog(
+                                    context, "Please Enter Confirm Password");
+                              } else if (_passwordConfirm.text.length <= 7) {
+                                alertScreen().showAlertDialog(context,
+                                    "Confirm Password Length Must Greater than 8");
+                              } else if (_password.text !=
+                                  _passwordConfirm.text) {
+                                alertScreen().showAlertDialog(
+                                    context, "Password Does Not Match");
+                              } else {
+                                var response = await API().register(
+                                    _name.text,
+                                    _email.text,
+                                    _password.text,
+                                    _passwordConfirm.text);
+                                if (response['status'] == false) {
+                                  alertScreen().showAlertDialog(
+                                      context, response['message']);
+                                } else {
+                                  Navigator.of(context)
+                                      .pushReplacementNamed('verify_code', arguments: {'token': _email.text});
+                                }
+                              }
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -120,7 +173,7 @@ class _SignUpState extends State<SignUp> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pushReplacementNamed('login');
                   },
                   child: Text(
