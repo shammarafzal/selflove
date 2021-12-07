@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:self_love/Models/get_categories.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
+  static var client = http.Client();
   final String baseUrl = 'selflove.spphotography.info';
   var image_base_url = 'selflove.spphotography.info/storage/';
   register(String name, String email, String password, String confirm_password) async {
@@ -83,6 +86,22 @@ class API {
       final String responseString = response.body;
       return jsonDecode(responseString);
     }
+  }
+
+    Future<List<Category>> getCategories() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var url = Uri.http(baseUrl, '/api/fetchCategories', {"q": "dart"});
+    var response = await client.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if(response.statusCode == 200){
+        return categoryFromJson(response.body);
+    }
+    else{
+        return categoryFromJson(response.statusCode.toString());
+    }
+
   }
 
 }

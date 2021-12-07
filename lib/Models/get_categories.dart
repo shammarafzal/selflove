@@ -1,28 +1,13 @@
+// To parse this JSON data, do
+//
+//     final category = categoryFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-GetCategories getCategoriesFromJson(String str) => GetCategories.fromJson(json.decode(str));
+List<Category> categoryFromJson(String str) => List<Category>.from(json.decode(str).map((x) => Category.fromJson(x)));
 
-String getCategoriesToJson(GetCategories data) => json.encode(data.toJson());
-
-class GetCategories {
-  GetCategories({
-    required this.status,
-    required this.categories,
-  });
-
-  bool status;
-  List<Category> categories;
-
-  factory GetCategories.fromJson(Map<String, dynamic> json) => GetCategories(
-    status: json["status"],
-    categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-  };
-}
+String categoryToJson(List<Category> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Category {
   Category({

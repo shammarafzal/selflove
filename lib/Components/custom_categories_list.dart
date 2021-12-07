@@ -1,47 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:self_love/Controllers/data_controller.dart';
+import 'package:self_love/Controllers/category_controller.dart';
 
-class CategoriesList extends GetView<DataController> {
-  const CategoriesList({Key? key}) : super(key: key);
+class CategoriesList extends StatelessWidget {
+  CategoriesList({Key? key}) : super(key: key);
+  final CategoryController categoryController = Get.put(CategoryController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110,
-      child: controller.obx((data) =>
-          ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: data.length,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, index) {
-          print(data);
-          return CategoriesView(
-            title: data[index]['name'],
-            imagePath: "https://cdn-icons-png.flaticon.com/512/6146/6146236.png",
-          );
-        },
-      ),)
-      // child: ListView(
-      //   scrollDirection: Axis.horizontal,
-      //   children: [
-      //     CategoriesView(imagePath: "https://image.freepik.com/free-photo/sporty-young-woman-model-wearing-white-sleeveless-t-shirt-leggins-doing-sport-exercise-biceps-triceps-with-sport-fitness-rubber-bands-isolated-color-background_176532-13645.jpg", title: "Fitness",),
-      //     CategoriesView(imagePath: "https://image.freepik.com/free-photo/young-pregnant-woman-smiling-with-happiness_1150-18141.jpg", title: "Pregnancy",),
-      //     CategoriesView(imagePath: "https://image.freepik.com/free-vector/organic-flat-people-meditating-illustration_23-2148906556.jpg", title: "Health",),
-      //     CategoriesView(imagePath: "https://image.freepik.com/free-photo/love-yourself-self-acceptance-gentle-lovely-afro-american-woman-crosses-hands-embraces-own-body-tilts-head-closes-eyes_273609-39190.jpg", title: "Self Love",),
-      //     CategoriesView(imagePath: "https://image.freepik.com/free-photo/top-view-healthy-food-vs-unhealthy-food_23-2148194603.jpg", title: "Nutrition",),
-      //     CategoriesView(imagePath: "https://cdn-icons-png.flaticon.com/512/6146/6146236.png", title: "Life",),
-      //   ],
-      // ),
-    );
+        height: 110,
+        child: Obx(
+          () {
+            if (categoryController.isLoading.value) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categoryController.categoryList.length,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, index) {
+                  return CategoriesView(
+                    title: categoryController.categoryList[index].name,
+                    imagePath:
+                        "https://cdn-icons-png.flaticon.com/512/6146/6146236.png",
+                  );
+                },
+              );
+            }
+          },
+        ));
   }
 }
 
-
 class CategoriesView extends StatefulWidget {
-  const CategoriesView({Key? key, required this.imagePath, required this.title}) : super(key: key);
+  const CategoriesView({Key? key, required this.imagePath, required this.title})
+      : super(key: key);
   final imagePath;
   final title;
+
   @override
   _CategoriesViewState createState() => _CategoriesViewState();
 }
@@ -50,7 +47,7 @@ class _CategoriesViewState extends State<CategoriesView> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Navigator.of(context).pushReplacementNamed('cat_item_list');
       },
       child: Padding(
@@ -60,12 +57,18 @@ class _CategoriesViewState extends State<CategoriesView> {
           height: 100,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(image: NetworkImage(widget.imagePath),
-                  fit: BoxFit.cover)
-          ),
+              image: DecorationImage(
+                  image: NetworkImage(widget.imagePath), fit: BoxFit.cover)),
           child: Align(
               alignment: Alignment.bottomCenter,
-              child: Text(widget.title, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal),textAlign: TextAlign.center,)),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal),
+                textAlign: TextAlign.center,
+              )),
         ),
       ),
     );
