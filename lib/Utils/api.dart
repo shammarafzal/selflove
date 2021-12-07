@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class API {
   static var client = http.Client();
   final String baseUrl = 'selflove.spphotography.info';
-  var image_base_url = 'selflove.spphotography.info/storage/';
+  var image_base_url = 'http://selflove.spphotography.info/storage/';
   register(String name, String email, String password, String confirm_password) async {
     var url = Uri.http(baseUrl, '/api/register', {"q": "dart"});
     final response = await http.post(url, body: {

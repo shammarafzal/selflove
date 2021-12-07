@@ -42,7 +42,7 @@ Future<void> main() async {
     GetMaterialApp(
       // debugShowCheckedModeBanner: false,
       // initialRoute: isLoggedIn! ? 'home' : 'home',
-      initialRoute: '/login',
+      initialRoute: 'home',
       getPages: Routes.routes
       // theme: ThemeData(primarySwatch: Colors.blue),
       // routes: {

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:self_love/Controllers/category_controller.dart';
+import 'package:self_love/Utils/api.dart';
 
-class CategoriesList extends StatelessWidget {
+class CategoriesList extends StatefulWidget {
   CategoriesList({Key? key}) : super(key: key);
+
+  @override
+  State<CategoriesList> createState() => _CategoriesListState();
+}
+
+class _CategoriesListState extends State<CategoriesList> {
   final CategoryController categoryController = Get.put(CategoryController());
 
   @override
@@ -12,9 +19,9 @@ class CategoriesList extends StatelessWidget {
         height: 110,
         child: Obx(
           () {
-            if (categoryController.isLoading.value) {
-              return Center(child: CircularProgressIndicator());
-            } else {
+            // if (categoryController.isLoading.value) {
+            //   return Center(child: CircularProgressIndicator());
+            // } else {
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: categoryController.categoryList.length,
@@ -23,12 +30,12 @@ class CategoriesList extends StatelessWidget {
                   return CategoriesView(
                     title: categoryController.categoryList[index].name,
                     imagePath:
-                        "https://cdn-icons-png.flaticon.com/512/6146/6146236.png",
+                    API().image_base_url+'${categoryController.categoryList[index].image}',
                   );
                 },
               );
             }
-          },
+          // },
         ));
   }
 }

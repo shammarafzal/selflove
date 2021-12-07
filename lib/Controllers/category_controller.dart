@@ -1,35 +1,50 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:self_love/Models/get_categories.dart';
 import 'package:self_love/Utils/api.dart';
 
 class CategoryController extends GetxController{
-  var isLoading = true.obs;
+  // var isLoading = true.obs;
   // var categoryList = <Category>[].obs;
   RxList<Category> categoryList = <Category>[].obs;
+  // @override
+  // void onInit(){
+  //   fetchCategories();
+  //   super.onInit();
+  //
+  //
+  // }
+  //
+  // @override
+  // void onClose(){
+  //   super.onClose();
+  // }
+  Timer? timer;
+
   @override
-  void onInit(){
-    super.onInit();
+  void onInit() {
     fetchCategories();
+    super.onInit();
+    timer = Timer.periodic(Duration(seconds: 8), (Timer t) => fetchCategories());
   }
 
   @override
-  void onClose(){
-    super.onClose();
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   void fetchCategories() async{
-
       try {
-        isLoading(true);
+        // isLoading(true);
         var categories = await API().getCategories();
         if(categories != null){
           categoryList.value = categories;
         }
       } finally {
-        isLoading(false);
+        // isLoading(false);
       }
-      categoryList.refresh();
-      update();
   }
 
 }
