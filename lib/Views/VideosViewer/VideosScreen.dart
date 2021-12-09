@@ -3,6 +3,8 @@ import 'package:video_player/video_player.dart';
 import 'chew.dart';
 
 class VideosViewer extends StatefulWidget {
+  VideosViewer({Key? key, required this.videoLink}) : super(key: key);
+  final videoLink;
   @override
   _VideosViewerState createState() => _VideosViewerState();
 }
@@ -14,7 +16,7 @@ class _VideosViewerState extends State<VideosViewer> {
             child: ListView(children: [
           ChewieListItem(
             videoPlayerController: VideoPlayerController.network(
-              'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+              widget.videoLink,
             ),
             looping: false,
           )

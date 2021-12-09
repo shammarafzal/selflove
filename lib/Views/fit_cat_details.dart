@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'VideosViewer/VideosScreen.dart';
 
 class FitCatDetails extends StatefulWidget {
-  const FitCatDetails({Key? key, required this.title, required this.desc, required this.image, required this.story}) : super(key: key);
+  const FitCatDetails({Key? key, required this.title, required this.desc, required this.image, required this.videoLink}) : super(key: key);
   final title;
   final desc;
   final image;
-  final story;
+  final videoLink;
   @override
   _FitCatDetailsState createState() => _FitCatDetailsState();
 }
@@ -35,12 +35,12 @@ class _FitCatDetailsState extends State<FitCatDetails> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.story, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: Colors.black),),
+                child: Text('', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: Colors.black),),
               ),
             ),
             Container(
                 height: 310,
-                child: VideosViewer()),
+                child: VideosViewer(videoLink: widget.videoLink,)),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

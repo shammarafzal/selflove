@@ -31,6 +31,7 @@ class _CategoriesListState extends State<CategoriesList> {
                     title: categoryController.categoryList[index].name,
                     imagePath:
                     API().image_base_url+'${categoryController.categoryList[index].image}',
+                    cat_id: categoryController.categoryList[index].id,
                   );
                 },
               );
@@ -41,11 +42,11 @@ class _CategoriesListState extends State<CategoriesList> {
 }
 
 class CategoriesView extends StatefulWidget {
-  const CategoriesView({Key? key, required this.imagePath, required this.title})
+  const CategoriesView({Key? key, required this.imagePath, required this.title, required this.cat_id})
       : super(key: key);
   final imagePath;
   final title;
-
+  final cat_id;
   @override
   _CategoriesViewState createState() => _CategoriesViewState();
 }
@@ -55,7 +56,7 @@ class _CategoriesViewState extends State<CategoriesView> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushReplacementNamed('cat_item_list');
+        Navigator.of(context).pushReplacementNamed('/cat_item_list', arguments: {'cat_id': widget.cat_id});
       },
       child: Padding(
         padding: const EdgeInsets.all(5.0),

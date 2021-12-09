@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:self_love/Models/get_categories.dart';
+import 'package:self_love/Models/get_fitness.dart';
+import 'package:self_love/Models/get_suggestion.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
@@ -101,7 +103,37 @@ class API {
     else{
         return categoryFromJson(response.statusCode.toString());
     }
+  }
 
+  Future<List<Fitness>> getFitnesses(String cat_id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var url = Uri.http(baseUrl, '/api/fetchFitnesses', {"q": "dart"});
+    var response = await client.post(url, body: {
+      "category_id": cat_id
+    },headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if(response.statusCode == 200){
+      return fitnessFromJson(response.body);
+    }
+    else{
+      return fitnessFromJson(response.statusCode.toString());
+    }
+  }
+  Future<List<Suggestion>> getSuggestions() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var url = Uri.http(baseUrl, '/api/todayFitnessSugestions', {"q": "dart"});
+    var response = await client.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if(response.statusCode == 200){
+      return suggestionFromJson(response.body);
+    }
+    else{
+      return suggestionFromJson(response.statusCode.toString());
+    }
   }
 
 }

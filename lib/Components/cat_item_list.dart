@@ -1,76 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:self_love/Controllers/fitness_controller.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
+import 'package:self_love/Utils/api.dart';
 import 'package:self_love/Views/fit_cat_details.dart';
 
 class CatItemList extends StatelessWidget {
-  const CatItemList({Key? key,}) : super(key: key);
+
+  // final arguments = Get.arguments as Map;
+
+    CatItemList({
+    Key? key,
+  }) : super(key: key);
+  FitnessController fitnessController = Get.put(FitnessController('24'));
   @override
   Widget build(BuildContext context) {
+    // FitnessController fitnessController = Get.put(FitnessController('${arguments['cat_id']}'));
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.of(context).pushReplacementNamed('home');
             },
             child: Icon(Icons.arrow_back_ios)),
-        backgroundColor: Color.fromRGBO(254,176,149, 1),
+        backgroundColor: Color.fromRGBO(254, 176, 149, 1),
         title: Text('Categories List'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: ListView(
-          children: [
-            Card(
-              child: CatItem(
-                  imagePath: 'https://image.freepik.com/free-photo/sporty-young-woman-doing-yoga-practice-isolated-concept-healthy-life-natural-balance-body-mental-development_231208-10353.jpg',
-                  title: 'Eating Disorders',
-                  desc: 'lorum ipsum tripsum, lorum ipsum',
-                  long_desc: 'lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum',
-                  story: 'My Love'
-              ),
-            ),
-            Card(
-              child: CatItem(
-                  imagePath: 'https://cdn-icons-png.flaticon.com/512/3043/3043217.png',
-                  title: 'Chest Exercise',
-                  desc: 'lorum ipsum tripsum, lorum ipsum',
-                  long_desc: 'lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum',
-                  story: 'My Love'
-              ),
-            ),
-            Card(
-              child: CatItem(
-                  imagePath: 'https://image.freepik.com/free-photo/top-view-healthy-food-vs-unhealthy-food_23-2148194603.jpg',
-                  title: 'Food',
-                  desc: 'lorum ipsum tripsum, lorum ipsum',
-                  long_desc: 'lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum',
-                  story: 'My Love'
-              ),
-            ),
-            Card(
-              child: CatItem(
-                  imagePath: 'https://image.freepik.com/free-photo/i-wish-this-moment-could-stay-forever_329181-11286.jpg',
-                  title: 'Relax',
-                  desc: 'lorum ipsum tripsum, lorum ipsum',
-                  long_desc: 'lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum, lorum ipsum tripsum, lorum ipsum',
-                  story: 'My Love'
-              ),
-            ),
-          ],
-        ),
-      ),
+          padding: const EdgeInsets.all(10.0),
+          child: Obx(() {
+            // if (categoryController.isLoading.value) {
+            //   return Center(child: CircularProgressIndicator());
+            // } else {
+
+            return ListView.builder(
+              // scrollDirection: Axis.horizontal,
+              itemCount: fitnessController.fitnessList.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, index) {
+                return Card(
+                  child: CatItem(
+                      imagePath:
+                             API().image_base_url+'${fitnessController.fitnessList[index].thumbnail}',
+                      title: fitnessController.fitnessList[index].name,
+                      desc: fitnessController.fitnessList[index].description,
+                      long_desc:
+                      fitnessController.fitnessList[index].description,
+                      videoLink: API().image_base_url+'${fitnessController.fitnessList[index].media}',)
+                );
+              },
+            );
+          }
+// },
+              )),
     );
   }
 }
 
 class CatItem extends StatefulWidget {
-  const CatItem({Key? key, required this.imagePath, required this.title, required this.desc, required this.long_desc, required this.story}) : super(key: key);
+  const CatItem(
+      {Key? key,
+      required this.imagePath,
+      required this.title,
+      required this.desc,
+      required this.long_desc,
+      required this.videoLink})
+      : super(key: key);
   final imagePath;
   final title;
   final desc;
   final long_desc;
-  final story;
+  final videoLink;
+
   @override
   _CatItemState createState() => _CatItemState();
 }
@@ -80,13 +82,15 @@ class _CatItemState extends State<CatItem> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return InkWell(
-      onTap: (){
+      onTap: () {
         Navigator.push(
           context,
           new MaterialPageRoute(
-              builder: (context) =>
-                  FitCatDetails(title: widget.title, desc: widget.long_desc, image: widget.imagePath, story: widget.story)
-          ),
+              builder: (context) => FitCatDetails(
+                  title: widget.title,
+                  desc: widget.long_desc,
+                  image: widget.imagePath,
+                  videoLink: widget.videoLink)),
         );
       },
       child: Container(
@@ -100,27 +104,32 @@ class _CatItemState extends State<CatItem> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                      image: NetworkImage(widget.imagePath), fit: BoxFit.cover)),
+                      image: NetworkImage(widget.imagePath),
+                      fit: BoxFit.cover)),
             ),
             Container(
                 width: SizeConfig.screenWidth * 0.65,
-                child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('${widget.title}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('${widget.desc}', style: TextStyle(fontSize: 14),)),
-                      ),
-                    ]
-                )
-            )
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '${widget.title}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '${widget.desc}',
+                          style: TextStyle(fontSize: 14),
+                        )),
+                  ),
+                ]))
           ],
         ),
       ),
