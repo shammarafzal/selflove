@@ -157,7 +157,7 @@ class _SignUpState extends State<SignUp> {
                                       context, response['message']);
                                 } else {
                                   Navigator.of(context)
-                                      .pushReplacementNamed('verify_code', arguments: {'token': _email.text});
+                                      .pushReplacementNamed('/verify_code', arguments: {'token': _email.text});
                                 }
                               }
                             },
@@ -174,7 +174,7 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.only(top: 10),
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).pushReplacementNamed('login');
+                    Navigator.of(context).pushReplacementNamed('/login');
                   },
                   child: Text(
                     'Already have an account? Login here.',

@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                 InkWell(
                   onTap: () {
 
-                    Navigator.of(context).pushReplacementNamed('login');
+                    Navigator.of(context).pushReplacementNamed('/login');
                   },
                   child: ListTile(
                     title: Text('Logout'),

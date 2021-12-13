@@ -117,11 +117,7 @@ class _VerificationCodeState extends State<VerificationCode> {
                               alertScreen().showAlertDialog(context, response['message']);
                             }
                             else{
-                              if (Platform.isAndroid) {
-                                Navigator.of(context).pushReplacementNamed('payment_screen');
-                              } else if (Platform.isIOS) {
-                                Navigator.of(context).pushReplacementNamed('in_app_purchases');
-                              }
+                                Navigator.of(context).pushReplacementNamed('/in_app_purchase');
                             }
                           }
                         }

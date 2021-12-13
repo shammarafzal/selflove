@@ -127,7 +127,7 @@ class _SignInState extends State<SignIn> {
                 padding: const EdgeInsets.only(top: 10),
                 child: InkWell(
                   onTap: (){
-                    Navigator.of(context).pushReplacementNamed('signup_screen');
+                    Navigator.of(context).pushReplacementNamed('/signup');
                   },
                   child: Text(
                     'Don\'t have an account? Register here.',

@@ -188,7 +188,7 @@ class PaymentScreenState extends State<PaymentScreen> {
                           ),
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              Navigator.of(context).pushReplacementNamed('home');
+                              Navigator.of(context).pushReplacementNamed('/home');
                             } else {
                               print('invalid!');
                             }

@@ -18,7 +18,7 @@ class _FitnessState extends State<Fitness> {
         title: Text('Fitness',),
         leading: InkWell(
             onTap: (){
-              Navigator.of(context).pushReplacementNamed('home');
+              Navigator.of(context).pushReplacementNamed('/home');
             },
             child: Icon(Icons.arrow_back_ios)),
       ),
