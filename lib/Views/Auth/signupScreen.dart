@@ -21,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         color: Color.fromRGBO(254, 176, 149, 0.3),
         child: Column(
@@ -38,7 +39,7 @@ class _SignUpState extends State<SignUp> {
                   child: Container(
                     height: SizeConfig.screenHeight * 0.75,
                     child: ListView(
-                      // mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
                         Image.asset(
                           'assets/self_logo.png',
@@ -118,48 +119,17 @@ class _SignUpState extends State<SignUp> {
                           child: CustomButton(
                             title: 'Contine',
                             onPress: () async {
-                              bool emailValid = RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(_email.text);
-                              if (_name.text == "") {
-                                alertScreen().showAlertDialog(
-                                    context, "Please Enter First Name");
-                              } else if (_email.text == "") {
-                                alertScreen().showAlertDialog(
-                                    context, "Please Enter Email");
-                              } else if (emailValid == false) {
-                                alertScreen().showAlertDialog(
-                                    context, "Please Enter Valid Email");
-                              } else if (_password.text == "") {
-                                alertScreen().showAlertDialog(
-                                    context, "Please Enter Password");
-                              } else if (_password.text.length <= 7) {
-                                alertScreen().showAlertDialog(context,
-                                    "Password Length Must Greater than 8");
-                              } else if (_passwordConfirm.text == "") {
-                                alertScreen().showAlertDialog(
-                                    context, "Please Enter Confirm Password");
-                              } else if (_passwordConfirm.text.length <= 7) {
-                                alertScreen().showAlertDialog(context,
-                                    "Confirm Password Length Must Greater than 8");
-                              } else if (_password.text !=
-                                  _passwordConfirm.text) {
-                                alertScreen().showAlertDialog(
-                                    context, "Password Does Not Match");
-                              } else {
                                 var response = await API().register(
                                     _name.text,
                                     _email.text,
                                     _password.text,
                                     _passwordConfirm.text);
                                 if (response['status'] == false) {
-                                  alertScreen().showAlertDialog(
-                                      context, response['message']);
+                                  alertScreen().showToast(response['message']);
                                 } else {
                                   Navigator.of(context)
                                       .pushReplacementNamed('/verify_code', arguments: {'token': _email.text});
                                 }
-                              }
                             },
                           ),
                         ),

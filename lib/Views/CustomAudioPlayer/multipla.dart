@@ -1,14 +1,14 @@
 
 import 'dart:async';
 import 'package:audio_service/audio_service.dart';
-
-import 'common.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'common.dart';
 
 // You might want to provide this using dependency injection rather than a
 // global variable.

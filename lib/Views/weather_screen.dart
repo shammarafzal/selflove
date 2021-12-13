@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:weather/weather.dart';
 import 'package:weather_icons/weather_icons.dart';
+import 'package:location/location.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -11,17 +12,41 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
+
   DateTime _focusedDay = DateTime.now();
   Weather? w;
   // final String weatherCode;
 
   void getCurrentLocation() async {
-    double lat = 55.0111;
-    double lon = 15.0569;
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+
+    double? lat = _locationData.latitude;
+    double? lon = _locationData.latitude;
     String key = '856822fd8e22db5e1ba48c0e7d69844a';
-    String cityName = 'Kongens Lyngby';
     WeatherFactory wf = WeatherFactory(key);
-    w = await wf.currentWeatherByCityName(cityName);
+    w = await wf.currentWeatherByLocation(lat!,lon!);
   }
 
   @override

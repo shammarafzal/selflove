@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 import 'package:self_love/Components/cat_item_list.dart';
 import 'package:self_love/Views/fitness.dart';
 import 'package:self_love/Views/home_page.dart';
-import 'package:self_love/Views/in_app_purchase.dart';
+import 'package:self_love/Views/Auth/in_app_purchase.dart';
 import 'package:self_love/Views/intro_screen.dart';
-import 'package:self_love/Views/otp_verification.dart';
-import 'package:self_love/Views/signinScreen.dart';
-import 'package:self_love/Views/signupScreen.dart';
+import 'package:self_love/Views/Auth/otp_verification.dart';
+import 'package:self_love/Views/Auth/signinScreen.dart';
+import 'package:self_love/Views/Auth/signupScreen.dart';
 
 class Routes{
   static final routes = [

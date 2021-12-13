@@ -2,11 +2,12 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Routes/route.dart';
-import 'Views/common.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rrx;
+
+import 'Views/CustomAudioPlayer/common.dart';
 
   late AudioHandler _audioHandler;
 

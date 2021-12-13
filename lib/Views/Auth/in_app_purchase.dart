@@ -79,7 +79,7 @@ class _InAppPurchaseState extends State<InAppPurchase> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                           child: CustomButton(title: 'Subscribe', onPress: (){
-                            Navigator.of(context).pushReplacementNamed('/home');
+                            Navigator.of(context).pushReplacementNamed('/login');
                           },),
                         ),
                       ],

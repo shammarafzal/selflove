@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'meditation.dart';
+import '../Components/meditation.dart';
 
 
 class MedicationScreen extends StatefulWidget {

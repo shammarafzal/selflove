@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:self_love/Models/get_categories.dart';
 import 'package:self_love/Models/get_fitness.dart';
+import 'package:self_love/Models/get_me.dart';
 import 'package:self_love/Models/get_suggestion.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -133,6 +134,20 @@ class API {
     }
     else{
       return suggestionFromJson(response.statusCode.toString());
+    }
+  }
+  Future<List<Me>> getMe() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var url = Uri.http(baseUrl, '/api/user', {"q": "dart"});
+    var response = await client.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if(response.statusCode == 200){
+      return meFromJson(response.body);
+    }
+    else{
+      return meFromJson(response.statusCode.toString());
     }
   }
 

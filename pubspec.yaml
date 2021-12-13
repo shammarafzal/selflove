@@ -53,6 +53,8 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   flutter_credit_card: ^3.0.1
   get: ^4.5.1
+  fluttertoast: ^8.0.8
+  location: ^4.3.0
 
 
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
-import 'dart:io' show Platform;
+
 
 import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Utils/api.dart';
@@ -28,6 +28,7 @@ class _VerificationCodeState extends State<VerificationCode> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         color: Color.fromRGBO(254,176,149, 0.3),
         child: Column(
@@ -107,19 +108,14 @@ class _VerificationCodeState extends State<VerificationCode> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10,10,10,20),
                         child: CustomButton(title: 'Continue', onPress: () async {
-                          if(controller.text == ""){
-                            alertScreen().showAlertDialog(context, "Please Enter Pin");
-                          }
-                          else{
                             var response = await API().verifyEmailToken(controller.text, arguments['token']);
                             print(arguments['token']);
                             if(response['status'] == false){
-                              alertScreen().showAlertDialog(context, response['message']);
+                              alertScreen().showToast(response['message']);
                             }
                             else{
                                 Navigator.of(context).pushReplacementNamed('/in_app_purchase');
                             }
-                          }
                         }
                         ),
                       ),

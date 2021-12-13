@@ -3,19 +3,19 @@ import 'package:get/get.dart';
 import 'package:self_love/Controllers/fitness_controller.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:self_love/Utils/api.dart';
-import 'package:self_love/Views/fit_cat_details.dart';
+import 'package:self_love/Components/fit_cat_details.dart';
 
 class CatItemList extends StatelessWidget {
 
-  // final arguments = Get.arguments as Map;
+  final arguments = Get.arguments as Map;
 
     CatItemList({
     Key? key,
   }) : super(key: key);
-  FitnessController fitnessController = Get.put(FitnessController('24'));
+  // FitnessController fitnessController = Get.put(FitnessController('24'));
   @override
   Widget build(BuildContext context) {
-    // FitnessController fitnessController = Get.put(FitnessController('${arguments['cat_id']}'));
+    FitnessController fitnessController = Get.put(FitnessController('${arguments['cat_id']}'));
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
@@ -95,7 +95,7 @@ class _CatItemState extends State<CatItem> {
       },
       child: Container(
         color: Color.fromRGBO(246, 247, 249, 1),
-        height: SizeConfig.screenHeight * 0.12,
+        height: SizeConfig.screenHeight * 0.14,
         width: SizeConfig.screenWidth * 0.9,
         child: Row(
           children: [

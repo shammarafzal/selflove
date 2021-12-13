@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:self_love/Controllers/me_controller.dart';
 import 'package:self_love/Settings/alertDialog.dart';
-import 'package:self_love/Views/payment_screen.dart';
-import 'account_screen.dart';
 import 'calender_screen.dart';
 import 'home_landing_page.dart';
 import 'medication_screen.dart';
@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  final MeController meController = Get.put(MeController());
   int _selectedIndex = 0;
   late String _title;
   static const TextStyle optionStyle =
@@ -62,28 +62,17 @@ class _HomePageState extends State<HomePage> {
         drawer: new Drawer(
             child: ListView(
               children: <Widget>[
-                FutureBuilder(
-                  // future:  Utils().fetchuser(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return UserAccountsDrawerHeader(
+                Obx(() {
+                  return UserAccountsDrawerHeader(
+                    currentAccountPicture: CircleAvatar(
+                      backgroundImage: AssetImage("assets/self_logo.png"),
 
-                          accountName: Text('ss',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                          accountEmail: Text('ss'),
-                          decoration: new BoxDecoration(color:  Color.fromRGBO(254,176,149, 1),),
-                        );
-                      }
-                      return UserAccountsDrawerHeader(
-                        currentAccountPicture: CircleAvatar(
-                          backgroundImage: AssetImage("assets/self_logo.png"),
-
-                        ),
-                        accountName: Text('Ammar',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                        accountEmail: Text('ammarafzal075@gmail.com'),
-                        decoration: new BoxDecoration(color:  Color.fromRGBO(254,176,149, 1),),
-                      );
-                    }
-                ),
+                    ),
+                    accountName: Text(meController.meList[0].name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                    accountEmail: Text(meController.meList[0].email),
+                    decoration: new BoxDecoration(color: Color.fromRGBO(254,176,149, 1)),
+                  );
+                }),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
@@ -93,21 +82,6 @@ class _HomePageState extends State<HomePage> {
                     leading: Icon(Icons.home, color:  Color.fromRGBO(254,176,149, 1),),
                   ),
                 ),
-                // InkWell(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       new MaterialPageRoute(
-                //           builder: (context) =>
-                //               PaymentScreen()
-                //       ),
-                //     );
-                //   },
-                //   child: ListTile(
-                //     title: Text('Stripe Payment'),
-                //     leading: Icon(Icons.person, color: Color.fromRGBO(254,176,149, 1)),
-                //   ),
-                // ),
                 InkWell(
                   onTap: () {
                     alertScreen().showAlertUnSubDialog(context, 'Do you really want to unsubscribe');

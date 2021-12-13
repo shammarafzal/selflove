@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:self_love/Controllers/suggestion_controller.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:self_love/Utils/api.dart';
-import 'package:self_love/Views/fit_cat_details.dart';
+import 'package:self_love/Components/fit_cat_details.dart';
 
 class Suggestion_list extends StatelessWidget {
   Suggestion_list({Key? key}) : super(key: key);
@@ -98,7 +98,7 @@ class _SuggestionState extends State<Suggestion> {
       },
       child: Container(
         color: Color.fromRGBO(246, 247, 249, 1),
-        height: SizeConfig.screenHeight * 0.12,
+        height: SizeConfig.screenHeight * 0.15,
         width: SizeConfig.screenWidth * 0.9,
         child: Row(
           children: [

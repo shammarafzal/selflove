@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'VideosViewer/VideosScreen.dart';
+import '../Views/VideosViewer/VideosScreen.dart';
 
 class FitCatDetails extends StatefulWidget {
   const FitCatDetails({Key? key, required this.title, required this.desc, required this.image, required this.videoLink}) : super(key: key);
