@@ -24,7 +24,7 @@ class Routes{
     ),
     GetPage(
       name: '/in_app_purchase',
-      page: () => InAppPurchase(),
+      page: () => InAppPurchaseScreen(),
     ),
     GetPage(
       name: '/login',

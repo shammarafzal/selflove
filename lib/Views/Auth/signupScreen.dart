@@ -5,6 +5,8 @@ import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Utils/api.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+
 
 class SignUp extends StatefulWidget {
   @override
@@ -12,6 +14,9 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
+  static final String oneSignalAppId = "";
+  
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();

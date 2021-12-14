@@ -55,6 +55,8 @@ dependencies:
   get: ^4.5.1
   fluttertoast: ^8.0.8
   location: ^4.3.0
+  in_app_purchase: ^2.0.1
+  onesignal_flutter: ^3.2.7
 
 
 

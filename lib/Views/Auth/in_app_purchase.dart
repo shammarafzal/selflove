@@ -1,17 +1,115 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:self_love/Settings/alertDialog.dart';
 
-class InAppPurchase extends StatefulWidget {
-  const InAppPurchase({Key? key}) : super(key: key);
+class InAppPurchaseScreen extends StatefulWidget {
+  const InAppPurchaseScreen({Key? key}) : super(key: key);
 
   @override
-  _InAppPurchaseState createState() => _InAppPurchaseState();
+  _InAppPurchaseScreenState createState() => _InAppPurchaseScreenState();
 }
 
-class _InAppPurchaseState extends State<InAppPurchase> {
+class _InAppPurchaseScreenState extends State<InAppPurchaseScreen> {
+ final InAppPurchase _inAppPurchase = InAppPurchase.instance;
+ final String _productID = "User_Monthly_Subscription";
+ bool _available = true;
+ List<ProductDetails> _products = [];
+ List<PurchaseDetails> _purchases = [];
+ StreamSubscription<List<PurchaseDetails>>? _subscription;
+ @override
+ void initState() {
+   final Stream<List<PurchaseDetails>> purchaseUpdated =
+       _inAppPurchase.purchaseStream;
+
+   _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+     setState(() {
+       _purchases.addAll(purchaseDetailsList);
+       _listenToPurchaseUpdated(purchaseDetailsList);
+     });
+   }, onDone: () {
+     _subscription!.cancel();
+   }, onError: (error) {
+     _subscription!.cancel();
+   });
+
+   _initialize();
+
+   super.initState();
+ }
+ void _initialize() async {
+   _available = await _inAppPurchase.isAvailable();
+
+   List<ProductDetails> products = await _getProducts(
+     productIds: Set<String>.from(
+       [_productID],
+     ),
+   );
+
+   setState(() {
+     _products = products;
+   });
+ }
+
+ void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+   purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
+     switch (purchaseDetails.status) {
+       case PurchaseStatus.pending:
+       //  _showPendingUI();
+         break;
+       case PurchaseStatus.purchased:
+       case PurchaseStatus.restored:
+       // bool valid = await _verifyPurchase(purchaseDetails);
+       // if (!valid) {
+       //   _handleInvalidPurchase(purchaseDetails);
+       // }
+         break;
+       case PurchaseStatus.error:
+         print(purchaseDetails.error!);
+         // _handleError(purchaseDetails.error!);
+         break;
+       default:
+         break;
+     }
+
+     if (purchaseDetails.pendingCompletePurchase) {
+       await _inAppPurchase.completePurchase(purchaseDetails);
+     }
+   });
+ }
+ Future<List<ProductDetails>> _getProducts(
+     {required Set<String> productIds}) async {
+   ProductDetailsResponse response =
+   await _inAppPurchase.queryProductDetails(productIds);
+
+   return response.productDetails;
+ }
+ void _subscribe({required ProductDetails product}) {
+   final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+   _inAppPurchase.buyNonConsumable(
+     purchaseParam: purchaseParam,
+   );
+   if ( _purchases[0].status == PurchaseStatus.purchased) {
+     Navigator.of(context).pushReplacementNamed('/login');
+   }
+   else {
+     alertScreen().showToast("Error");
+   }
+ }
+
+
+ @override
+ void dispose() {
+   _subscription!.cancel();
+   super.dispose();
+ }
+
   @override
   Widget build(BuildContext context) {
+
     SizeConfig().init(context);
     return Scaffold(
       body: Container(
@@ -79,7 +177,8 @@ class _InAppPurchaseState extends State<InAppPurchase> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                           child: CustomButton(title: 'Subscribe', onPress: (){
-                            Navigator.of(context).pushReplacementNamed('/login');
+                            _subscribe(product: _products[0]);
+                            //Navigator.of(context).pushReplacementNamed('/login');
                           },),
                         ),
                       ],

@@ -27,7 +27,7 @@ Future<void> main() async {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: '/intro',
       getPages: Routes.routes
     ),
   );
