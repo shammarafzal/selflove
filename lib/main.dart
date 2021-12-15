@@ -9,10 +9,8 @@ import 'package:rxdart/rxdart.dart' as rrx;
 
 import 'Views/CustomAudioPlayer/common.dart';
 
-  late AudioHandler _audioHandler;
-
-
-
+late AudioHandler _audioHandler;
+var mediaUrl = "";
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _audioHandler = await AudioService.init(
@@ -26,18 +24,20 @@ Future<void> main() async {
 
   runApp(
     GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/intro',
-      getPages: Routes.routes
-    ),
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/intro',
+        getPages: Routes.routes),
   );
 }
 
-
 class MainScreen extends StatelessWidget {
+  const MainScreen({Key? key, required this.media}) : super(key: key);
+  final media;
 
   @override
   Widget build(BuildContext context) {
+    mediaUrl = media;
+    print(mediaUrl);
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text('Audio Service Demo'),
@@ -113,13 +113,13 @@ class MainScreen extends StatelessWidget {
       rrx.Rx.combineLatest2<MediaItem?, Duration, MediaState>(
           _audioHandler.mediaItem,
           AudioService.position,
-              (mediaItem, position) => MediaState(mediaItem, position));
+          (mediaItem, position) => MediaState(mediaItem, position));
 
   IconButton _button(IconData iconData, VoidCallback onPressed) => IconButton(
-    icon: Icon(iconData),
-    iconSize: 64.0,
-    onPressed: onPressed,
-  );
+        icon: Icon(iconData),
+        iconSize: 64.0,
+        onPressed: onPressed,
+      );
 }
 
 class MediaState {
@@ -132,7 +132,7 @@ class MediaState {
 /// An [AudioHandler] for playing a single item.
 class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
   static final _item = MediaItem(
-    id: 'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3',
+    id: mediaUrl, //'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3',
     album: "Inner Power",
     title: "",
     artist: "Science Friday and WNYC Studios",
@@ -182,8 +182,7 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
     return PlaybackState(
       controls: [
         MediaControl.rewind,
-        if (_player.playing) MediaControl.pause else
-          MediaControl.play,
+        if (_player.playing) MediaControl.pause else MediaControl.play,
         MediaControl.stop,
         MediaControl.fastForward,
       ],

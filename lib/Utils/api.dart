@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:self_love/Models/fetchMeditations.dart';
 import 'package:self_love/Models/get_categories.dart';
 import 'package:self_love/Models/get_fitness.dart';
 import 'package:self_love/Models/get_me.dart';
@@ -103,6 +104,21 @@ class API {
     }
     else{
         return categoryFromJson(response.statusCode.toString());
+    }
+  }
+
+  Future<List<FetchMeditations>> fetchMeditation() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var url = Uri.http(baseUrl, '/api/fetchMeditations', {"q": "dart"});
+    var response = await client.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if(response.statusCode == 200){
+        return fetchMeditationsFromJson(response.body);
+    }
+    else{
+        return fetchMeditationsFromJson(response.statusCode.toString());
     }
   }
 
