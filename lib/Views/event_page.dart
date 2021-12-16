@@ -11,7 +11,8 @@ class EventPage extends StatefulWidget {
 
 class _EventPageState extends State<EventPage> {
   final EventController eventController = Get.put(EventController());
-  String todayDateIs = "12";
+  var monthId;
+  var dayId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,21 +69,45 @@ class _EventPageState extends State<EventPage> {
                     SizedBox(
                       height: 20,
                     ),
-        Obx(
-        () {
-     return Container(
-                      height: 60,
-                      child: ListView.builder(
-                          itemCount: eventController.eventList.length,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            print( eventController.eventList.length);
-                            return MonthTile(
-                              weekDay: "1",
-                            );
-                          }),
-                    );}),
+                    Obx(() {
+                      return Container(
+                        height: 60,
+                        child: ListView.builder(
+                            itemCount: eventController.eventList.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return InkResponse(
+                                  child: Container(
+                                    width: 40,
+                                    margin: EdgeInsets.only(right: 8),
+                                    // padding: EdgeInsets.symmetric(horizontal: 5),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(254, 176, 149, 1),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          eventController.eventList[index].name,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    print(
+                                        eventController.eventList[index].name);
+                                    monthId =
+                                        eventController.eventList[index].name;
+                                  });
+                            }),
+                      );
+                    }),
                     SizedBox(
                       height: 20,
                     ),
@@ -96,18 +121,71 @@ class _EventPageState extends State<EventPage> {
                     SizedBox(
                       height: 16,
                     ),
-                    Container(
-                      height: 60,
-                      child: ListView.builder(
-                          itemCount: 16,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return DayTile(
-                              days: '01',
-                            );
-                          }),
-                    ),
+                    Obx(() {
+                      return Container(
+                        height: 60,
+                        child: ListView.builder(
+                            itemCount: eventController.eventList.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, months) {
+                              return ListView.builder(
+                                  itemCount: eventController
+                                      .eventList[months].days.length,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, days) {
+                                    if (eventController
+                                            .eventList[months].name ==
+                                        monthId) {
+                                      // return DayTile(
+                                      //   days: eventController
+                                      //       .eventList[months].days[days].day,
+                                      // );
+                                      return InkResponse(
+                                        child: Container(
+                                          width: 55,
+                                          margin: EdgeInsets.only(right: 8),
+                                          decoration: BoxDecoration(
+                                              color: Color.fromRGBO(
+                                                  254, 176, 149, 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(35)),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                eventController
+                                                    .eventList[months]
+                                                    .days[days]
+                                                    .day,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          print(eventController
+                                              .eventList[months]
+                                              .days[days]
+                                              .day);
+                                          // print('day click');
+
+                                          dayId = eventController
+                                              .eventList[months].days[days].day;
+                                        },
+                                      );
+                                    } else {
+                                      return Text('-');
+                                    }
+                                  });
+                            }),
+                      );
+                    }),
                     SizedBox(
                       height: 20,
                     ),
@@ -121,19 +199,59 @@ class _EventPageState extends State<EventPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      child: ListView.builder(
-                          itemCount: 5,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            return Challenges(
-                              name: "Challenge 1",
-                              desc:
-                                  "Today is your first yoga class. Be prepare for it.",
-                            );
-                          }),
-                    )
+                    Obx(() {
+                      return Container(
+                        child: ListView.builder(
+                            itemCount: eventController.eventList.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, months) {
+                              return ListView.builder(
+                                  itemCount: eventController
+                                      .eventList[months].days.length,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder: (context, days) {
+                                    return ListView.builder(
+                                        itemCount: eventController
+                                            .eventList[months]
+                                            .days[days]
+                                            .challenges
+                                            .length,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemBuilder: (context, challenges) {
+                                          // print(eventController
+                                          //     .eventList[months]
+                                          //     .days[days]
+                                          //     .challenges[challenges]
+                                          //     .dayId);
+                                          if (eventController
+                                                  .eventList[months]
+                                                  .days[days]
+                                                  .challenges[challenges]
+                                                  .dayId ==
+                                              dayId) {
+                                            return Challenges(
+                                              name: eventController
+                                                  .eventList[months]
+                                                  .days[days]
+                                                  .challenges[challenges]
+                                                  .name,
+                                              desc: eventController
+                                                  .eventList[months]
+                                                  .days[days]
+                                                  .challenges[challenges]
+                                                  .detail,
+                                            );
+                                          } else {
+                                            return Center(child: Text('-'));
+                                          }
+                                        });
+                                  });
+                            }),
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -146,45 +264,65 @@ class _EventPageState extends State<EventPage> {
 }
 
 // ignore: must_be_immutable
-class MonthTile extends StatelessWidget {
-  String weekDay;
+// class MonthTile extends StatelessWidget {
+//   String weekDay;
+//   final EventController eventController = Get.put(EventController());
+//   MonthTile({required this.weekDay});
 
-  MonthTile({required this.weekDay});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      margin: EdgeInsets.only(right: 8),
-      // padding: EdgeInsets.symmetric(horizontal: 5),
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(254, 176, 149, 1),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          InkResponse(
-            child: Text(
-              weekDay,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              print("Month click");
-            },
-          )
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return InkResponse(
+//       child: Container(
+//         width: 40,
+//         margin: EdgeInsets.only(right: 8),
+//         // padding: EdgeInsets.symmetric(horizontal: 5),
+//         decoration: BoxDecoration(
+//           color: Color.fromRGBO(254, 176, 149, 1),
+//         ),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             Text(
+//               weekDay,
+//               style: TextStyle(
+//                   color: Colors.black,
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold),
+//             ),
+//           ],
+//         ),
+//       ),
+//       onTap: () {
+//         print(weekDay);
+//         Obx(() {
+//           return Container(
+//             height: 60,
+//             child: ListView.builder(
+//                 itemCount: eventController.eventList.length,
+//                 shrinkWrap: true,
+//                 scrollDirection: Axis.horizontal,
+//                 itemBuilder: (context, index) {
+//                   // print(eventController
+//                   //     .eventList[index].days[index].day);
+//                   if (eventController.eventList[index].id ==
+//                       eventController.eventList[index].days[index].monthId) {
+//                     print(eventController.eventList[index].days[index].day);
+//                   }
+//                   return DayTile(
+//                     days: eventController.eventList[index].name,
+//                   );
+//                 }),
+//           );
+//         });
+//       },
+//     );
+//   }
+// }
 
 // ignore: must_be_immutable
 class DayTile extends StatelessWidget {
   String days;
-
+  final EventController eventController = Get.put(EventController());
   DayTile({required this.days});
 
   @override

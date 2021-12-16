@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:self_love/Models/event_fitness.dart';
 import 'package:self_love/Utils/api.dart';
 
-class EventController extends GetxController{
+class EventController extends GetxController {
   // var isLoading = true.obs;
   // var categoryList = <Category>[].obs;
   RxList<EventFitness> eventList = <EventFitness>[].obs;
@@ -26,7 +26,7 @@ class EventController extends GetxController{
   void onInit() {
     fetchEvents();
     super.onInit();
-    timer = Timer.periodic(Duration(seconds: 8), (Timer t) => fetchEvents());
+    timer = Timer.periodic(Duration(seconds: 2), (Timer t) => fetchEvents());
   }
 
   @override
@@ -35,16 +35,15 @@ class EventController extends GetxController{
     super.dispose();
   }
 
-  void fetchEvents() async{
-      try {
-        // isLoading(true);
-        var events = await API().fetchCalendars();
-        if(events != null){
-          eventList.value = events;
-        }
-      } finally {
-        // isLoading(false);
+  void fetchEvents() async {
+    try {
+      // isLoading(true);
+      var events = await API().fetchCalendars();
+      if (events != null) {
+        eventList.value = events;
       }
+    } finally {
+      // isLoading(false);
+    }
   }
-
 }
