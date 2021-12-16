@@ -68,19 +68,21 @@ class _EventPageState extends State<EventPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
+        Obx(
+        () {
+     return Container(
                       height: 60,
                       child: ListView.builder(
-                          itemCount: 10,
+                          itemCount: eventController.eventList.length,
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            // print(eventController.eventList[index].name);
+                            print( eventController.eventList.length);
                             return MonthTile(
-                              weekDay: "05",
+                              weekDay: "1",
                             );
                           }),
-                    ),
+                    );}),
                     SizedBox(
                       height: 20,
                     ),
