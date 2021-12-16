@@ -84,7 +84,7 @@ class Day {
     updatedAt: DateTime.parse(json["updated_at"]),
     challenges: json["challenges"] == null ? [] : List<Day>.from(json["challenges"].map((x) => Day.fromJson(x))),
     dayId: json["day_id"] == null ? "" : json["day_id"],
-    name: json["name"] == null ? "null" : json["name"],
+    name: json["name"] == null ? "" : json["name"],
   );
 
   Map<String, dynamic> toJson() => {
