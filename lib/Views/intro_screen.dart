@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-
 class IntroScreen extends StatelessWidget {
   const IntroScreen({Key? key}) : super(key: key);
 
@@ -30,12 +29,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
-    Navigator.of(context).pushReplacementNamed('/signup');
+    Navigator.of(context).pushReplacementNamed('/login');
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {
     return Image.asset('assets/$assetName', width: width);
   }
+
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 19.0);
@@ -61,22 +61,20 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       pages: [
         PageViewModel(
           title: "Choose the suitable class for you",
-          body:
-          "We have expert team a you can book with them your classes.",
+          body: "We have expert team a you can book with them your classes.",
           image: _buildImage('sp-1.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Affordable and quality service",
           body:
-          "Focused on bringing fast, affordable and quality service for you.",
+              "Focused on bringing fast, affordable and quality service for you.",
           image: _buildImage('sp-2.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Adults and teens",
-          body:
-          "Adults and teens can boost their confidence.",
+          body: "Adults and teens can boost their confidence.",
           image: _buildImage('sp-3.png'),
           decoration: pageDecoration,
         ),
@@ -85,7 +83,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       showSkipButton: true,
       skipFlex: 0,
       nextFlex: 0,
-      skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
+      skip: const Text('Skip',
+          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
       next: const CircleAvatar(
         radius: 30,
         backgroundColor: Colors.blueAccent,
@@ -97,7 +96,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           onPressed: null,
         ),
       ),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
+      done: const Text('Done',
+          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       controlsPadding: kIsWeb

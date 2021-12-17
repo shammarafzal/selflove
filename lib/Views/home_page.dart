@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:self_love/Controllers/me_controller.dart';
 import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Views/event_page.dart';
@@ -16,6 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static final String oneSignalAppId = "da6740c3-1a6d-4413-9631-5d32763713e6";
+
   final MeController meController = Get.put(MeController());
   int _selectedIndex = 0;
   late String _title;
@@ -44,6 +47,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   initState() {
+    super.initState();
+    initPlatformState();
     _title = 'Fitness';
   }
 
@@ -165,5 +170,11 @@ class _HomePageState extends State<HomePage> {
           break;
       }
     });
+  }
+
+  // ONE Signal Configuration
+
+  Future<void> initPlatformState() async {
+    OneSignal.shared.setAppId(oneSignalAppId);
   }
 }
