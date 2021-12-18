@@ -21,11 +21,12 @@ Future<void> main() async {
 
   runApp(
     GetMaterialApp(
-        debugShowCheckedModeBanner: false,
         builder: EasyLoading.init(),
+        debugShowCheckedModeBanner: false,
         initialRoute: '/intro',
         getPages: Routes.routes),
   );
+
   configLoading();
 }
 

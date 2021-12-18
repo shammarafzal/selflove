@@ -10,7 +10,6 @@ import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Utils/api.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
@@ -18,8 +17,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   Timer? _timer;
-  
-  
+
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
@@ -47,7 +45,6 @@ class _SignUpState extends State<SignUp> {
                   child: Container(
                     height: SizeConfig.screenHeight * 0.75,
                     child: ListView(
-
                       children: [
                         Image.asset(
                           'assets/self_logo.png',
@@ -127,20 +124,26 @@ class _SignUpState extends State<SignUp> {
                           child: CustomButton(
                             title: 'Contine',
                             onPress: () async {
-                                var response = await API().register(
-                                    _name.text,
-                                    _email.text,
-                                    _password.text,
-                                    _passwordConfirm.text);
-                                if (response['status'] == false) {
-                                  // alertScreen().showToast(response['message']);
-                                   _timer?.cancel();
+                              await EasyLoading.show(
+                                status: 'loading...',
+                                maskType: EasyLoadingMaskType.black,
+                              );
+                              var response = await API().register(
+                                  _name.text,
+                                  _email.text,
+                                  _password.text,
+                                  _passwordConfirm.text);
+
+                              if (response['status'] == false) {
+                                // alertScreen().showToast(response['message']);
+                                _timer?.cancel();
                                 await EasyLoading.showError(
                                     response['message']);
-                                } else {
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/verify_code', arguments: {'token': _email.text});
-                                }
+                              } else {
+                                Navigator.of(context).pushReplacementNamed(
+                                    '/verify_code',
+                                    arguments: {'token': _email.text});
+                              }
                             },
                           ),
                         ),

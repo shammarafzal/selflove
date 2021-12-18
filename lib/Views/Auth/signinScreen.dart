@@ -93,10 +93,14 @@ class _SignInState extends State<SignIn> {
                             onPress: () async {
                               final SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
+                              await EasyLoading.show(
+                                status: 'loading...',
+                                maskType: EasyLoadingMaskType.black,
+                              );
                               var response = await API()
                                   .login(_email.text, _password.text);
                               if (response['status'] == false) {
-                               // alertScreen().showToast(response['message']);
+                                // alertScreen().showToast(response['message']);
                                 _timer?.cancel();
                                 await EasyLoading.showError(
                                     response['message']);
@@ -105,7 +109,8 @@ class _SignInState extends State<SignIn> {
                                 prefs.setString('token', response['token']);
                                 prefs.setInt('id', response['user']['id']);
                                 _timer?.cancel();
-                                await EasyLoading.showSuccess(response['message']);
+                                await EasyLoading.showSuccess(
+                                    response['message']);
                                 Navigator.of(context)
                                     .pushReplacementNamed('/home');
                               }

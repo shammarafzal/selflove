@@ -124,6 +124,10 @@ class _VerificationCodeState extends State<VerificationCode> {
                         child: CustomButton(
                             title: 'Continue',
                             onPress: () async {
+                              await EasyLoading.show(
+                                status: 'loading...',
+                                maskType: EasyLoadingMaskType.black,
+                              );
                               var response = await API().verifyEmailToken(
                                   controller.text, arguments['token']);
                               print(arguments['token']);
