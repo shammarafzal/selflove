@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
@@ -14,8 +17,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
-  static final String oneSignalAppId = "";
+  Timer? _timer;
+  
   
   final _name = TextEditingController();
   final _email = TextEditingController();
@@ -130,7 +133,10 @@ class _SignUpState extends State<SignUp> {
                                     _password.text,
                                     _passwordConfirm.text);
                                 if (response['status'] == false) {
-                                  alertScreen().showToast(response['message']);
+                                  // alertScreen().showToast(response['message']);
+                                   _timer?.cancel();
+                                await EasyLoading.showError(
+                                    response['message']);
                                 } else {
                                   Navigator.of(context)
                                       .pushReplacementNamed('/verify_code', arguments: {'token': _email.text});

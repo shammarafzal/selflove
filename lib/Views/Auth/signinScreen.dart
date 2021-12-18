@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
@@ -13,6 +16,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  Timer? _timer;
   final _email = TextEditingController();
   final _password = TextEditingController();
   @override
@@ -21,7 +25,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        color: Color.fromRGBO(254,176,149, 0.3),
+        color: Color.fromRGBO(254, 176, 149, 0.3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -53,7 +57,6 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                         ),
-
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -65,8 +68,9 @@ class _SignInState extends State<SignIn> {
                         ),
                         Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                            child: CustomTextField(controller: _email,)
-                        ),
+                            child: CustomTextField(
+                              controller: _email,
+                            )),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -78,25 +82,35 @@ class _SignInState extends State<SignIn> {
                         ),
                         Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                            child: CustomTextField(controller: _password, isPassword: true,)
-                        ),
-
+                            child: CustomTextField(
+                              controller: _password,
+                              isPassword: true,
+                            )),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: CustomButton(title: 'Login', onPress: () async {
-                            final SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                              var response =
-                                  await API().login(_email.text, _password.text);
+                          child: CustomButton(
+                            title: 'Login',
+                            onPress: () async {
+                              final SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              var response = await API()
+                                  .login(_email.text, _password.text);
                               if (response['status'] == false) {
-                                alertScreen().showToast(response['message']);
+                               // alertScreen().showToast(response['message']);
+                                _timer?.cancel();
+                                await EasyLoading.showError(
+                                    response['message']);
                               } else {
                                 prefs.setBool('isLoggedIn', true);
                                 prefs.setString('token', response['token']);
                                 prefs.setInt('id', response['user']['id']);
-                                Navigator.of(context).pushReplacementNamed('/home');
+                                _timer?.cancel();
+                                await EasyLoading.showSuccess(response['message']);
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/home');
                               }
-                          },),
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -108,7 +122,7 @@ class _SignInState extends State<SignIn> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pushReplacementNamed('/signup');
                   },
                   child: Text(
