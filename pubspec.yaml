@@ -45,10 +45,9 @@ dependencies:
   path_provider: ^2.0.1
   provider: 5.0.0
   audio_session: ^0.1.6+1
-  just_audio: ^0.9.13
   flutter_tts: ^3.2.2
   rxdart: ^0.27.2
-  audio_service: ^0.18.1
+  audioplayers: ^0.20.1
   chewie: ^1.2.2
   font_awesome_flutter: ^9.2.0
   flutter_credit_card: ^3.0.1
