@@ -10,11 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
   static var client = http.Client();
-  final String baseUrl = 'selflove.spphotography.info';
-  var image_base_url = 'http://selflove.spphotography.info/storage/';
+  final String baseUrl = 'admin.theselflovebible.com.au';
+  var image_base_url = 'https://admin.theselflovebible.com.au/storage/';
   register(String name, String email, String password,
       String confirm_password) async {
-    var url = Uri.http(baseUrl, '/api/register', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/register', {"q": "dart"});
     final response = await http.post(url, body: {
       "name": name,
       "email": email,
@@ -35,7 +35,7 @@ class API {
   }
 
   verifyEmailToken(String token, String email) async {
-    var url = Uri.http(baseUrl, '/api/verifyEmail', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/verifyEmail', {"q": "dart"});
     final response =
         await http.post(url, body: {"token": token, "email": email});
     if (response.statusCode == 200) {
@@ -57,7 +57,7 @@ class API {
   }
 
   login(String email, String password) async {
-    var url = Uri.http(baseUrl, '/api/login', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/login', {"q": "dart"});
     final response = await http.post(url, body: {
       "email": email,
       "password": password,
@@ -78,8 +78,12 @@ class API {
   }
 
   logout() async {
-    var url = Uri.http(baseUrl, '/api/logout', {"q": "dart"});
-    final response = await http.get(url);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var url = Uri.https(baseUrl, '/api/logout', {"q": "dart"});
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
     if (response.statusCode == 200) {
       final String responseString = response.body;
       return jsonDecode(responseString);
@@ -98,7 +102,7 @@ class API {
   Future<List<Category>> getCategories() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var url = Uri.http(baseUrl, '/api/fetchCategories', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/fetchCategories', {"q": "dart"});
     var response = await client.get(url, headers: {
       'Authorization': 'Bearer $token',
     });
@@ -112,7 +116,7 @@ class API {
   Future<List<FetchMeditations>> fetchMeditation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var url = Uri.http(baseUrl, '/api/fetchMeditations', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/fetchMeditations', {"q": "dart"});
     var response = await client.get(url, headers: {
       'Authorization': 'Bearer $token',
     });
@@ -126,7 +130,7 @@ class API {
   Future<List<EventFitness>> fetchCalendars() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var url = Uri.http(baseUrl, '/api/fetchCalendars', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/fetchCalendars', {"q": "dart"});
     var response = await client.get(url, headers: {
       'Authorization': 'Bearer $token',
     });
@@ -140,7 +144,7 @@ class API {
   Future<List<Fitness>> getFitnesses(String cat_id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var url = Uri.http(baseUrl, '/api/fetchFitnesses', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/fetchFitnesses', {"q": "dart"});
     var response = await client.post(url, body: {
       "category_id": cat_id
     }, headers: {
@@ -156,7 +160,7 @@ class API {
   Future<List<Suggestion>> getSuggestions() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var url = Uri.http(baseUrl, '/api/todayFitnessSugestions', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/todayFitnessSugestions', {"q": "dart"});
     var response = await client.get(url, headers: {
       'Authorization': 'Bearer $token',
     });
@@ -170,7 +174,7 @@ class API {
   Future<List<Me>> getMe() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var url = Uri.http(baseUrl, '/api/user', {"q": "dart"});
+    var url = Uri.https(baseUrl, '/api/user', {"q": "dart"});
     var response = await client.get(url, headers: {
       'Authorization': 'Bearer $token',
     });

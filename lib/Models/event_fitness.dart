@@ -21,7 +21,7 @@ class EventFitness {
   });
 
   int id;
-  String topicId;
+  int topicId;
   String name;
   DateTime createdAt;
   DateTime updatedAt;
@@ -64,14 +64,14 @@ class Day {
   });
 
   int id;
-  String topicId;
-  String monthId;
+  int topicId;
+  int monthId;
   String day;
   String detail;
   DateTime createdAt;
   DateTime updatedAt;
   List<Day> challenges;
-  String dayId;
+  int dayId;
   String name;
 
   factory Day.fromJson(Map<String, dynamic> json) => Day(
@@ -83,7 +83,7 @@ class Day {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     challenges: json["challenges"] == null ? [] : List<Day>.from(json["challenges"].map((x) => Day.fromJson(x))),
-    dayId: json["day_id"] == null ? "" : json["day_id"],
+    dayId: json["day_id"] == null ? 1 : json["day_id"],
     name: json["name"] == null ? "" : json["name"],
   );
 
@@ -91,7 +91,7 @@ class Day {
     "id": id,
     "topic_id": topicId,
     "month_id": monthId,
-    "day": day == null ? "" : day,
+    "day": day == null ? null : day,
     "detail": detail,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),

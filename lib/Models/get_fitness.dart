@@ -24,7 +24,7 @@ class Fitness {
   });
 
   int id;
-  String categoryId;
+  int categoryId;
   String name;
   String description;
   String duration;

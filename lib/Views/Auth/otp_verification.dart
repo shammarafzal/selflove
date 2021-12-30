@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
-
-import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Utils/api.dart';
 
 class VerificationCode extends StatefulWidget {
@@ -124,6 +121,7 @@ class _VerificationCodeState extends State<VerificationCode> {
                         child: CustomButton(
                             title: 'Continue',
                             onPress: () async {
+                              try{
                               await EasyLoading.show(
                                 status: 'loading...',
                                 maskType: EasyLoadingMaskType.black,
@@ -132,13 +130,22 @@ class _VerificationCodeState extends State<VerificationCode> {
                                   controller.text, arguments['token']);
                               print(arguments['token']);
                               if (response['status'] == false) {
-                                // alertScreen().showToast(response['message']);
                                 _timer?.cancel();
                                 await EasyLoading.showError(
                                     response['message']);
-                              } else {
+                              }
+                              else {
+                                _timer?.cancel();
+                                await EasyLoading.showSuccess(
+                                    response['message']);
                                 Navigator.of(context)
-                                    .pushReplacementNamed('/in_app_purchase');
+                                    .pushReplacementNamed('/login');
+                              }
+                              }
+                              catch(e){
+                                _timer?.cancel();
+                                await EasyLoading.showError(
+                                    'Something Went Wrong');
                               }
                             }),
                       ),

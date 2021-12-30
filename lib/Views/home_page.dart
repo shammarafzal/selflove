@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:self_love/Controllers/me_controller.dart';
 import 'package:self_love/Settings/alertDialog.dart';
+import 'package:self_love/Utils/api.dart';
 import 'package:self_love/Views/event_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'calender_screen.dart';
 import 'home_landing_page.dart';
 import 'medication_screen.dart';
@@ -18,7 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static final String oneSignalAppId = "da6740c3-1a6d-4413-9631-5d32763713e6";
-
+  Timer? _timer;
   final MeController meController = Get.put(MeController());
   int _selectedIndex = 0;
   late String _title;
@@ -68,18 +73,22 @@ class _HomePageState extends State<HomePage> {
             child: ListView(
           children: <Widget>[
             Obx(() {
-              return UserAccountsDrawerHeader(
-                currentAccountPicture: CircleAvatar(
-                  backgroundImage: AssetImage("assets/self_logo.png"),
-                ),
-                accountName: Text(
-                  meController.meList[0].name,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                accountEmail: Text(meController.meList[0].email),
-                decoration:
-                    new BoxDecoration(color: Color.fromRGBO(254, 176, 149, 1)),
-              );
+              return ListView.builder(
+                  itemCount: meController.meList.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, index) {
+                    return UserAccountsDrawerHeader(
+                      // currentAccountPicture: CircleAvatar(
+                      //   backgroundImage: AssetImage("assets/logo-app.png"),
+                      //
+                      // ),
+                      accountName: Text(meController.meList[index].name,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),),
+                      accountEmail: Text(meController.meList[index].email),
+                      decoration: new BoxDecoration(color: Color.fromRGBO(254, 176, 149, 1)),
+                    );
+                  });
             }),
             InkWell(
               onTap: () {
@@ -107,8 +116,30 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             InkWell(
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed('/login');
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences
+                    .getInstance();
+                try {
+                  var response =
+                  await API().logout();
+                  print(response);
+                  if (response['status'] == false) {
+                    _timer?.cancel();
+                    await EasyLoading.showError(
+                        response['message']);
+                  } else {
+                    _timer?.cancel();
+                    await EasyLoading.showSuccess(
+                        response['message']);
+                    prefs.remove("token");
+                    Navigator.of(context).pushReplacementNamed('/login');
+                  }
+                }
+                catch (e) {
+                  _timer?.cancel();
+                  await EasyLoading.showError(
+                      e.toString());
+                }
               },
               child: ListTile(
                 title: Text('Logout'),

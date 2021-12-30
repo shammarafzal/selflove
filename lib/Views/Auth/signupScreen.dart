@@ -1,14 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
-import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Utils/api.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -17,7 +14,6 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   Timer? _timer;
-
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
@@ -124,25 +120,34 @@ class _SignUpState extends State<SignUp> {
                           child: CustomButton(
                             title: 'Contine',
                             onPress: () async {
-                              await EasyLoading.show(
-                                status: 'loading...',
-                                maskType: EasyLoadingMaskType.black,
-                              );
-                              var response = await API().register(
-                                  _name.text,
-                                  _email.text,
-                                  _password.text,
-                                  _passwordConfirm.text);
+                              try {
+                                await EasyLoading.show(
+                                  status: 'loading...',
+                                  maskType: EasyLoadingMaskType.black,
+                                );
+                                var response = await API().register(
+                                    _name.text,
+                                    _email.text,
+                                    _password.text,
+                                    _passwordConfirm.text);
 
-                              if (response['status'] == false) {
-                                // alertScreen().showToast(response['message']);
+                                if (response['status'] == false) {
+                                  _timer?.cancel();
+                                  await EasyLoading.showError(
+                                      response['message']);
+                                } else {
+                                  _timer?.cancel();
+                                  await EasyLoading.showSuccess(
+                                      response['message']);
+                                  Navigator.of(context).pushReplacementNamed(
+                                      '/verify_code',
+                                      arguments: {'token': _email.text});
+                                }
+                              }
+                              catch(e){
                                 _timer?.cancel();
                                 await EasyLoading.showError(
-                                    response['message']);
-                              } else {
-                                Navigator.of(context).pushReplacementNamed(
-                                    '/verify_code',
-                                    arguments: {'token': _email.text});
+                                    'Something Went Wrong');
                               }
                             },
                           ),

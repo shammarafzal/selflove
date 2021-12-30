@@ -15,6 +15,7 @@ class Me {
     required this.name,
     required this.email,
     required this.isAdmin,
+    required this.verify,
     required this.age,
     required this.image,
     required this.createdAt,
@@ -24,7 +25,8 @@ class Me {
   int id;
   String name;
   String email;
-  String isAdmin;
+  int isAdmin;
+  int verify;
   dynamic age;
   dynamic image;
   DateTime createdAt;
@@ -35,6 +37,7 @@ class Me {
     name: json["name"],
     email: json["email"],
     isAdmin: json["is_admin"],
+    verify: json["verify"],
     age: json["age"],
     image: json["image"],
     createdAt: DateTime.parse(json["created_at"]),
@@ -46,6 +49,7 @@ class Me {
     "name": name,
     "email": email,
     "is_admin": isAdmin,
+    "verify": verify,
     "age": age,
     "image": image,
     "created_at": createdAt.toIso8601String(),

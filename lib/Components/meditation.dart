@@ -17,7 +17,7 @@ class MedicationList extends StatelessWidget {
       height: SizeConfig.screenHeight * 0.5,
       child: Obx(() {
         return ListView.builder(
-          scrollDirection: Axis.horizontal,
+
           itemCount: meditationController.meditationList.length,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, index) {

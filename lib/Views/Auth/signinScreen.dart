@@ -6,7 +6,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:self_love/Components/customButton.dart';
 import 'package:self_love/Components/customTextField.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
-import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Utils/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
