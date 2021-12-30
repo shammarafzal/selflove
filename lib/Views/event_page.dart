@@ -176,7 +176,7 @@ class _EventPageState extends State<EventPage> {
                                           // print('day click');
 
                                           dayId = eventController
-                                              .eventList[months].days[days].day;
+                                              .eventList[months].days[days].id;
                                         },
                                       );
                                     } else {
