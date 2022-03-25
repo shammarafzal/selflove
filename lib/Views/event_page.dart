@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:self_love/Controllers/event_controller.dart';
-
 class EventPage extends StatefulWidget {
   EventPage({Key? key}) : super(key: key);
 
@@ -13,6 +13,7 @@ class _EventPageState extends State<EventPage> {
   final EventController eventController = Get.put(EventController());
   var monthId;
   var dayId;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,19 +165,15 @@ class _EventPageState extends State<EventPage> {
                                                   color: Colors.black,
                                                   fontSize: 18,
                                                 ),
-                                              )
+                                              ),
+
                                             ],
                                           ),
                                         ),
                                         onTap: () {
-                                          print(eventController
-                                              .eventList[months]
-                                              .days[days]
-                                              .day);
-                                          // print('day click');
-
                                           dayId = eventController
                                               .eventList[months].days[days].id;
+
                                         },
                                       );
                                     } else {
@@ -189,6 +186,7 @@ class _EventPageState extends State<EventPage> {
                     SizedBox(
                       height: 20,
                     ),
+
                     Text(
                       "Challenges",
                       style: TextStyle(
@@ -232,17 +230,26 @@ class _EventPageState extends State<EventPage> {
                                                   .challenges[challenges]
                                                   .dayId ==
                                               dayId) {
-                                            return Challenges(
-                                              name: eventController
-                                                  .eventList[months]
-                                                  .days[days]
-                                                  .challenges[challenges]
-                                                  .name,
-                                              desc: eventController
-                                                  .eventList[months]
-                                                  .days[days]
-                                                  .challenges[challenges]
-                                                  .detail,
+                                            print(22);
+                                            return Column(
+                                              children: [
+                                                Html(data:"${eventController
+                                                    .eventList[months]
+                                                    .days[days]
+                                                    .detail}"),
+                                                Challenges(
+                                                  name: eventController
+                                                      .eventList[months]
+                                                      .days[days]
+                                                      .challenges[challenges]
+                                                      .name,
+                                                  desc: eventController
+                                                      .eventList[months]
+                                                      .days[days]
+                                                      .challenges[challenges]
+                                                      .detail,
+                                                ),
+                                              ],
                                             );
                                           } else {
                                             return Center(child: Text('-'));
@@ -272,7 +279,7 @@ class Challenges extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 190,
       margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
           color: Color.fromRGBO(254, 176, 149, 1),
