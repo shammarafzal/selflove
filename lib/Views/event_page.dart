@@ -13,7 +13,7 @@ class _EventPageState extends State<EventPage> {
   final EventController eventController = Get.put(EventController());
   var monthId;
   var dayId;
-
+var fds='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,6 +173,10 @@ class _EventPageState extends State<EventPage> {
                                         onTap: () {
                                           dayId = eventController
                                               .eventList[months].days[days].id;
+                                          fds = eventController
+                                              .eventList[months]
+                                              .days[days]
+                                              .detail;
 
                                         },
                                       );
@@ -198,65 +202,65 @@ class _EventPageState extends State<EventPage> {
                       height: 20,
                     ),
                     Obx(() {
-                      return Container(
-                        child: ListView.builder(
-                            itemCount: eventController.eventList.length,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, months) {
-                              return ListView.builder(
-                                  itemCount: eventController
-                                      .eventList[months].days.length,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder: (context, days) {
-                                    return ListView.builder(
-                                        itemCount: eventController
-                                            .eventList[months]
-                                            .days[days]
-                                            .challenges
-                                            .length,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemBuilder: (context, challenges) {
-                                          // print(eventController
-                                          //     .eventList[months]
-                                          //     .days[days]
-                                          //     .challenges[challenges]
-                                          //     .dayId);
-                                          if (eventController
-                                                  .eventList[months]
-                                                  .days[days]
-                                                  .challenges[challenges]
-                                                  .dayId ==
-                                              dayId) {
-                                            print(22);
-                                            return Column(
-                                              children: [
-                                                Html(data:"${eventController
-                                                    .eventList[months]
-                                                    .days[days]
-                                                    .detail}"),
-                                                Challenges(
-                                                  name: eventController
+                      return Column(
+                        children: [
+                          Html(data:"${fds}"),
+                          Container(
+                            child: ListView.builder(
+                                itemCount: eventController.eventList.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, months) {
+                                  return ListView.builder(
+                                      itemCount: eventController
+                                          .eventList[months].days.length,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, days) {
+                                        return ListView.builder(
+                                            itemCount: eventController
+                                                .eventList[months]
+                                                .days[days]
+                                                .challenges
+                                                .length,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemBuilder: (context, challenges) {
+                                              // print(eventController
+                                              //     .eventList[months]
+                                              //     .days[days]
+                                              //     .challenges[challenges]
+                                              //     .dayId);
+                                              if (eventController
                                                       .eventList[months]
                                                       .days[days]
                                                       .challenges[challenges]
-                                                      .name,
-                                                  desc: eventController
-                                                      .eventList[months]
-                                                      .days[days]
-                                                      .challenges[challenges]
-                                                      .detail,
-                                                ),
-                                              ],
-                                            );
-                                          } else {
-                                            return Center(child: Text('-'));
-                                          }
-                                        });
-                                  });
-                            }),
+                                                      .dayId ==
+                                                  dayId) {
+                                                return Column(
+                                                  children: [
+                                                    Challenges(
+                                                      name: eventController
+                                                          .eventList[months]
+                                                          .days[days]
+                                                          .challenges[challenges]
+                                                          .name,
+                                                      desc: eventController
+                                                          .eventList[months]
+                                                          .days[days]
+                                                          .challenges[challenges]
+                                                          .detail,
+                                                    ),
+                                                  ],
+                                                );
+                                              } else {
+                                                return Center(child: Text(''));
+                                              }
+                                            });
+                                      });
+                                }),
+                          ),
+                        ],
                       );
                     }),
                   ],
