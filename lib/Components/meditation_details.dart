@@ -79,6 +79,8 @@ class _MeditationDetailsState extends State<MeditationDetails> {
   }
 }
 
+AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
+
 class MusicPlayer extends StatefulWidget {
   MusicPlayer({Key? key, required this.media}) : super(key: key);
   final media;
@@ -88,7 +90,7 @@ class MusicPlayer extends StatefulWidget {
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
-  AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
+  // AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
   bool isPlaying = false;
   String currentSong = "";
   IconData btnIcon = Icons.play_arrow;
@@ -113,23 +115,23 @@ class _MusicPlayerState extends State<MusicPlayer> {
       }
     }
 
-  // Slider configuration
+    // Slider configuration
 
-    // audioPlayer.onDurationChanged.listen((event) {
-    //   if (mounted) {
-    //     setState(() {
-    //       duration = event;
-    //     });
-    //   }
-    // });
+    audioPlayer.onDurationChanged.listen((event) {
+      if (mounted) {
+        setState(() {
+          duration = event;
+        });
+      }
+    });
 
-    // audioPlayer.onAudioPositionChanged.listen((event) {
-    //   if (mounted) {
-    //     setState(() {
-    //       position = event;
-    //     });
-    //   }
-    // });
+    audioPlayer.onAudioPositionChanged.listen((event) {
+      if (mounted) {
+        setState(() {
+          position = event;
+        });
+      }
+    });
   }
 
   @override
