@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:self_love/Controllers/event_controller.dart';
+
 class EventPage extends StatefulWidget {
   EventPage({Key? key}) : super(key: key);
 
@@ -13,7 +14,7 @@ class _EventPageState extends State<EventPage> {
   final EventController eventController = Get.put(EventController());
   var monthId;
   var dayId;
-var fds='';
+  var fds = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +167,6 @@ var fds='';
                                                   fontSize: 18,
                                                 ),
                                               ),
-
                                             ],
                                           ),
                                         ),
@@ -177,7 +177,6 @@ var fds='';
                                               .eventList[months]
                                               .days[days]
                                               .detail;
-
                                         },
                                       );
                                     } else {
@@ -190,7 +189,6 @@ var fds='';
                     SizedBox(
                       height: 20,
                     ),
-
                     Text(
                       "Challenges",
                       style: TextStyle(
@@ -204,7 +202,7 @@ var fds='';
                     Obx(() {
                       return Column(
                         children: [
-                          Html(data:"${fds}"),
+                          Html(data: "${fds}"),
                           Container(
                             child: ListView.builder(
                                 itemCount: eventController.eventList.length,
@@ -243,12 +241,14 @@ var fds='';
                                                       name: eventController
                                                           .eventList[months]
                                                           .days[days]
-                                                          .challenges[challenges]
+                                                          .challenges[
+                                                              challenges]
                                                           .name,
                                                       desc: eventController
                                                           .eventList[months]
                                                           .days[days]
-                                                          .challenges[challenges]
+                                                          .challenges[
+                                                              challenges]
                                                           .detail,
                                                     ),
                                                   ],

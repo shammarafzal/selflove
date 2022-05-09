@@ -27,6 +27,10 @@ class _MeditationDetailsState extends State<MeditationDetails> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => {audioPlayer.dispose(), Navigator.of(context).pop()},
+        ),
         title: Text('${widget.title}'),
         backgroundColor: Color.fromRGBO(254, 176, 149, 1),
       ),
