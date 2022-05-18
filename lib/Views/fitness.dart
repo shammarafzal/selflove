@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:self_love/Components/custom_fitness_list.dart';
-import 'package:self_love/Components/custom_image_list.dart';
+import 'Components/custom_fitness_list.dart';
+import 'Components/custom_image_list.dart';
 
 class Fitness extends StatefulWidget {
   const Fitness({Key? key}) : super(key: key);

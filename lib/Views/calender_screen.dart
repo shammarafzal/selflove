@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:self_love/Components/custom_categories_list.dart';
+import 'Components/custom_categories_list.dart';
 import 'package:self_love/Models/events.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../Components/challenge_screen.dart';
+import 'Components/challenge_screen.dart';
 
 class TableEventsExample extends StatefulWidget {
   @override

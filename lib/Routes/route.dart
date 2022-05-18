@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:self_love/Components/cat_item_list.dart';
+import '../Views/Components/cat_item_list.dart';
 import 'package:self_love/Views/fitness.dart';
 import 'package:self_love/Views/home_page.dart';
 import 'package:self_love/Views/Auth/in_app_purchase.dart';

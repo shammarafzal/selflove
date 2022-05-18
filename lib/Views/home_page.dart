@@ -5,11 +5,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:self_love/Controllers/me_controller.dart';
-import 'package:self_love/Settings/alertDialog.dart';
 import 'package:self_love/Utils/api.dart';
 import 'package:self_love/Views/event_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'calender_screen.dart';
 import 'home_landing_page.dart';
 import 'medication_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -104,8 +102,8 @@ class _HomePageState extends State<HomePage> {
             ),
             InkWell(
               onTap: () {
-                alertScreen().showAlertUnSubDialog(
-                    context, 'Do you really want to unsubscribe');
+                // alertScreen().showAlertUnSubDialog(
+                //     context, 'Do you really want to unsubscribe');
               },
               child: ListTile(
                 title: Text('Unsubscribe'),

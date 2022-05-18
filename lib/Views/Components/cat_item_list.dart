@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:self_love/Controllers/fitness_controller.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:self_love/Utils/api.dart';
-import 'package:self_love/Components/fit_cat_details.dart';
+import 'fit_cat_details.dart';
 
 class CatItemList extends StatelessWidget {
 

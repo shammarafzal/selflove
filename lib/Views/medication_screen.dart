@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Components/meditation.dart';
+
+import 'Components/meditation.dart';
+
 
 class MedicationScreen extends StatefulWidget {
   const MedicationScreen({Key? key, this.mor_eve = "Goood Morning"})

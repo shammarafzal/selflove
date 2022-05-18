@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:self_love/Components/customButton.dart';
+import '../Components/customButton.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:self_love/Settings/alertDialog.dart';
 
 class InAppPurchaseScreen extends StatefulWidget {
   const InAppPurchaseScreen({Key? key}) : super(key: key);
@@ -96,7 +94,7 @@ class _InAppPurchaseScreenState extends State<InAppPurchaseScreen> {
      Navigator.of(context).pushReplacementNamed('/login');
    }
    else {
-     alertScreen().showToast("Error");
+     // alertScreen().showToast("Error");
    }
  }
 

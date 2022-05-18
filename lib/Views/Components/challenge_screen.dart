@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:self_love/Components/customButton.dart';
-import 'package:self_love/Settings/alertDialog.dart';
+import 'customButton.dart';
+
 
 class ChallengeScreen extends StatefulWidget {
   const ChallengeScreen({Key? key, required this.title, required this.desc, required this.long_desc, required this.day, required this.challenge_msg1, required this.challenge_msg2, required this.challenge_msg3,}) : super(key: key);
@@ -56,19 +56,19 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(title: 'Challenge 1', onPress: (){
-                alertScreen().showAlertBtnDialog(context, widget.challenge_msg1);
+                // alertScreen().showAlertBtnDialog(context, widget.challenge_msg1);
               }),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(title: 'Challenge 2', onPress: (){
-                alertScreen().showAlertBtnDialog(context, widget.challenge_msg2);
+                // alertScreen().showAlertBtnDialog(context, widget.challenge_msg2);
               }),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(title: 'Challenge 3', onPress: (){
-                alertScreen().showAlertBtnDialog(context, widget.challenge_msg3);
+                // alertScreen().showAlertBtnDialog(context, widget.challenge_msg3);
               }),
             )
 
