@@ -20,7 +20,7 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children:[
+        children: [
           Center(
             child: Text(
               "Events",
@@ -33,8 +33,7 @@ class _EventPageState extends State<EventPage> {
           Center(
             child: Text(
               "Let's explore what’s happening nearby",
-              style:
-                  TextStyle(color: Colors.black, fontSize: 15),
+              style: TextStyle(color: Colors.black, fontSize: 15),
             ),
           ),
           SizedBox(
@@ -80,10 +79,8 @@ class _EventPageState extends State<EventPage> {
                             ),
                           ),
                           onTap: () {
-                            print(
-                                eventController.eventList[index].name);
-                            monthId =
-                                eventController.eventList[index].name;
+                            print(eventController.eventList[index].name);
+                            monthId = eventController.eventList[index].name;
                           });
                     }),
               );
@@ -116,13 +113,12 @@ class _EventPageState extends State<EventPage> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, months) {
                         return ListView.builder(
-                            itemCount: eventController
-                                .eventList[months].days.length,
+                            itemCount:
+                                eventController.eventList[months].days.length,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, days) {
-                              if (eventController
-                                      .eventList[months].name ==
+                              if (eventController.eventList[months].name ==
                                   monthId) {
                                 // return DayTile(
                                 //   days: eventController
@@ -133,16 +129,13 @@ class _EventPageState extends State<EventPage> {
                                     width: 55,
                                     margin: EdgeInsets.only(right: 8),
                                     decoration: BoxDecoration(
-                                        color: Color.fromRGBO(
-                                            254, 176, 149, 1),
+                                        color: Color.fromRGBO(254, 176, 149, 1),
                                         borderRadius:
                                             BorderRadius.circular(35)),
                                     child: Center(
                                       child: Text(
                                         eventController
-                                            .eventList[months]
-                                            .days[days]
-                                            .day,
+                                            .eventList[months].days[days].day,
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -154,13 +147,11 @@ class _EventPageState extends State<EventPage> {
                                     dayId = eventController
                                         .eventList[months].days[days].id;
                                     fds = eventController
-                                        .eventList[months]
-                                        .days[days]
-                                        .detail;
+                                        .eventList[months].days[days].detail;
                                   },
                                 );
                               } else {
-                                return Text('');
+                                return SizedBox.shrink();
                               }
                             });
                       }),
@@ -194,20 +185,17 @@ class _EventPageState extends State<EventPage> {
                     ListView.builder(
                         itemCount: eventController.eventList.length,
                         shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
+                        // scrollDirection: Axis.vertical,
                         itemBuilder: (context, months) {
                           return ListView.builder(
-                              itemCount: eventController
-                                  .eventList[months].days.length,
+                              itemCount:
+                                  eventController.eventList[months].days.length,
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (context, days) {
                                 return ListView.builder(
-                                    itemCount: eventController
-                                        .eventList[months]
-                                        .days[days]
-                                        .challenges
-                                        .length,
+                                    itemCount: eventController.eventList[months]
+                                        .days[days].challenges.length,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemBuilder: (context, challenges) {
@@ -226,18 +214,16 @@ class _EventPageState extends State<EventPage> {
                                           name: eventController
                                               .eventList[months]
                                               .days[days]
-                                              .challenges[
-                                                  challenges]
+                                              .challenges[challenges]
                                               .name,
                                           desc: eventController
                                               .eventList[months]
                                               .days[days]
-                                              .challenges[
-                                                  challenges]
+                                              .challenges[challenges]
                                               .detail,
                                         );
                                       } else {
-                                        return Center(child: Text(''));
+                                        return SizedBox.shrink();
                                       }
                                     });
                               });
