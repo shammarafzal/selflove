@@ -21,7 +21,7 @@ Future<void> main() async {
     GetMaterialApp(
         builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/intro',
+        initialRoute: '/home',
         getPages: Routes.routes),
   );
 
