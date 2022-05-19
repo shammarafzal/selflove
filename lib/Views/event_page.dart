@@ -181,7 +181,14 @@ class _EventPageState extends State<EventPage> {
               child: Obx(() {
                 return Column(
                   children: [
-                    Html(data: "${fds}"),
+                    SizedBox(
+                        height: 150,
+                        child: ListView(
+                          children: [
+                            Html(data: "${fds}"),
+                            Padding(padding: EdgeInsets.all(10)),
+                          ],
+                        )),
                     ListView.builder(
                         itemCount: eventController.eventList.length,
                         shrinkWrap: true,
