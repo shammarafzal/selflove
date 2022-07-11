@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:self_love/Settings/SizeConfig.dart';
 import 'package:flutter/foundation.dart';
+import '../../AudioPlayer/audio_player.dart';
 
 class MeditationDetails extends StatefulWidget {
   const MeditationDetails({
@@ -22,6 +23,12 @@ class MeditationDetails extends StatefulWidget {
 }
 
 class _MeditationDetailsState extends State<MeditationDetails> {
+  late AudioPlayer advancePlayer;
+  @override
+  void initState(){
+    super.initState();
+    advancePlayer = AudioPlayer();
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -29,7 +36,9 @@ class _MeditationDetailsState extends State<MeditationDetails> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => {audioPlayer.dispose(), Navigator.of(context).pop()},
+          onPressed: () => {
+            advancePlayer.dispose(),
+            Navigator.of(context).pop()},
         ),
         title: Text('${widget.title}'),
         backgroundColor: Color.fromRGBO(254, 176, 149, 1),
@@ -50,9 +59,14 @@ class _MeditationDetailsState extends State<MeditationDetails> {
             ),
             Container(
               height: 200,
-              child: MusicPlayer(
-                media: widget.media,
+              child:
+              AudioFile(
+                advancePlayer: advancePlayer,
+                audioPath: widget.media,
               ),
+              // MusicPlayer(
+              //   media: widget.media,
+              // ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -78,126 +92,6 @@ class _MeditationDetailsState extends State<MeditationDetails> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
-
-class MusicPlayer extends StatefulWidget {
-  MusicPlayer({Key? key, required this.media}) : super(key: key);
-  final media;
-
-  @override
-  _MusicPlayerState createState() => _MusicPlayerState();
-}
-
-class _MusicPlayerState extends State<MusicPlayer> {
-  // AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
-  bool isPlaying = false;
-  String currentSong = "";
-  IconData btnIcon = Icons.play_arrow;
-  Duration duration = Duration();
-  Duration position = Duration();
-
-  void playMusic(String url) async {
-    if (isPlaying && currentSong != url) {
-      audioPlayer.pause();
-      int result = await audioPlayer.play(url);
-      if (result == 1) {
-        setState(() {
-          currentSong = url;
-        });
-      }
-    } else if (!isPlaying) {
-      int result = await audioPlayer.play(url);
-      if (result == 1) {
-        setState(() {
-          isPlaying = true;
-        });
-      }
-    }
-
-    // Slider configuration
-
-    audioPlayer.onDurationChanged.listen((event) {
-      if (mounted) {
-        setState(() {
-          duration = event;
-        });
-      }
-    });
-
-    audioPlayer.onAudioPositionChanged.listen((event) {
-      if (mounted) {
-        setState(() {
-          position = event;
-        });
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white12,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.white70,
-        ),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      margin: EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  width: 300,
-                  height: 100,
-                  child: Slider(
-                    value: 0,
-                    min: 0.0,
-                    max: 1.0,
-                    onChanged: (value) {},
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: IconButton(
-                  onPressed: () {
-                    playMusic(widget.media);
-
-                    if (isPlaying) {
-                      audioPlayer.pause();
-                      setState(() {
-                        btnIcon = Icons.play_arrow;
-                        isPlaying = false;
-                      });
-                    } else {
-                      audioPlayer.resume();
-                      setState(() {
-                        btnIcon = Icons.pause;
-                        isPlaying = true;
-                      });
-                    }
-                  },
-                  icon: Icon(
-                    btnIcon,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
       ),
     );
   }

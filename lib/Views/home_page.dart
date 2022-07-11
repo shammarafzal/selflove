@@ -100,19 +100,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                // alertScreen().showAlertUnSubDialog(
-                //     context, 'Do you really want to unsubscribe');
-              },
-              child: ListTile(
-                title: Text('Unsubscribe'),
-                leading: Icon(
-                  Icons.unsubscribe,
-                  color: Color.fromRGBO(254, 176, 149, 1),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     // alertScreen().showAlertUnSubDialog(
+            //     //     context, 'Do you really want to unsubscribe');
+            //   },
+            //   child: ListTile(
+            //     title: Text('Unsubscribe'),
+            //     leading: Icon(
+            //       Icons.unsubscribe,
+            //       color: Color.fromRGBO(254, 176, 149, 1),
+            //     ),
+            //   ),
+            // ),
             InkWell(
               onTap: () async {
                 SharedPreferences prefs = await SharedPreferences

@@ -86,7 +86,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('${w?.temperature}', style: TextStyle(color: Colors.white, fontSize: 20)),
+                    child: Text(w?.temperature == null ? 'Loading' : '${w?.temperature}', style: TextStyle(color: Colors.white, fontSize: 20)),
                   ),
                 ],
               ),
