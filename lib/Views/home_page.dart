@@ -100,19 +100,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            // InkWell(
-            //   onTap: () {
-            //     // alertScreen().showAlertUnSubDialog(
-            //     //     context, 'Do you really want to unsubscribe');
-            //   },
-            //   child: ListTile(
-            //     title: Text('Unsubscribe'),
-            //     leading: Icon(
-            //       Icons.unsubscribe,
-            //       color: Color.fromRGBO(254, 176, 149, 1),
-            //     ),
-            //   ),
-            // ),
+
             InkWell(
               onTap: () async {
                 SharedPreferences prefs = await SharedPreferences
@@ -143,6 +131,39 @@ class _HomePageState extends State<HomePage> {
                 title: Text('Logout'),
                 leading: Icon(
                   Icons.logout,
+                  color: Color.fromRGBO(254, 176, 149, 1),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences
+                    .getInstance();
+                try {
+                  var response =
+                  await API().deleteAccount();
+                  if (response['status'] == false) {
+                    _timer?.cancel();
+                    await EasyLoading.showError(
+                        response['message']);
+                  } else {
+                    _timer?.cancel();
+                    await EasyLoading.showSuccess(
+                        response['message']);
+                    prefs.remove("token");
+                    Navigator.of(context).pushReplacementNamed('/login');
+                  }
+                }
+                catch (e) {
+                  _timer?.cancel();
+                  await EasyLoading.showError(
+                      e.toString());
+                }
+              },
+              child: ListTile(
+                title: Text('Delete Account'),
+                leading: Icon(
+                  Icons.delete,
                   color: Color.fromRGBO(254, 176, 149, 1),
                 ),
               ),

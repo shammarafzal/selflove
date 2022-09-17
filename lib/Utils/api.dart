@@ -98,6 +98,27 @@ class API {
       return jsonDecode(responseString);
     }
   }
+  deleteAccount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var url = Uri.https(baseUrl, '/api/delete', {"q": "dart"});
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if (response.statusCode == 200) {
+      final String responseString = response.body;
+      return jsonDecode(responseString);
+    } else if (response.statusCode == 401) {
+      final String responseString = response.body;
+      return jsonDecode(responseString);
+    } else if (response.statusCode == 500) {
+      final String responseString = response.body;
+      return jsonDecode(responseString);
+    } else {
+      final String responseString = response.body;
+      return jsonDecode(responseString);
+    }
+  }
 
   Future<List<Category>> getCategories() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
